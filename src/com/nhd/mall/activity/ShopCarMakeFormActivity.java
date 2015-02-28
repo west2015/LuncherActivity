@@ -1,19 +1,15 @@
 package com.nhd.mall.activity;
+
+import java.util.HashMap;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,21 +29,9 @@ import com.nhd.mall.entity.FormStoreEntity;
 import com.nhd.mall.entity.Member;
 import com.nhd.mall.entity.OrderFiledEntity;
 import com.nhd.mall.entity.OrderProductEntity;
-import com.nhd.mall.entity.ProductDetailEntity;
 import com.nhd.mall.entity.StoreEntity;
-import com.nhd.mall.util.DateTimePickerDialog;
-import com.nhd.mall.util.ImageLoader;
 import com.nhd.mall.util.OnAsyncTaskUpdateListener;
-import com.nhd.mall.util.startIntent;
 import com.nhd.mall.widget.ModelActivity;
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.common.Log;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 
 /**确认订单页面 单个物品确认订单页面
  * Created by caili on 14-4-5.

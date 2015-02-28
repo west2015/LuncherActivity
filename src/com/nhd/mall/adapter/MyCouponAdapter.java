@@ -115,13 +115,21 @@ public class MyCouponAdapter extends BaseAdapter {
 //                holder.tvTitle.setText(coupon.getName()==null?"新华都储值卡":coupon.getName());
 //                break;
 //        }
-        switch(coupon.getType()){
-        case 1:
-        case 2:
-        	
-        	break;
-        case 3:
-        	break;
+        if(coupon.getName() != null){
+        	holder.tvTitle.setText(coupon.getName());
+        }
+        else {
+            switch(coupon.getType()){
+            case 1:
+            	holder.tvTitle.setText("新华都现金券");
+            	break;
+            case 2:
+            	holder.tvTitle.setText("新华都优惠券");
+            	break;
+            case 3:
+            	holder.tvTitle.setText("新华都储值卡");
+            	break;
+            }
         }
         if(coupon.getThumb()==null||coupon.getThumb().equals("")){
             holder.ivImg.setBackgroundResource(R.drawable.default_quan);

@@ -242,12 +242,15 @@ public class MallShopCarActivity extends ModelActivity implements View.OnClickLi
             successNotify();
         }
     }
+    
+    // 排序方法
     private boolean compare(OrderProductEntity op1,OrderProductEntity op2){
     	if(op1.getStoreId()<op2.getStoreId()) return true;
     	if(op1.getStoreId()>op2.getStoreId()) return false;
     	if(op1.getGetway ()<op2.getGetway() ) return true;
     	return false;
     }
+    
     //按门店id+配送方式给列表排序
     private void sortEntity(){
     	if(entity == null || entity.length<=0) return ;
@@ -422,6 +425,7 @@ public class MallShopCarActivity extends ModelActivity implements View.OnClickLi
             StatService.onPause(this);
         }
     }
+    
 	@Override
 	public void submitForm(int storeId,CarList carList) {
 		// TODO Auto-generated method stub
@@ -432,6 +436,7 @@ public class MallShopCarActivity extends ModelActivity implements View.OnClickLi
 		intent.putExtras(bundle);
 		startActivityForResult(intent, 1);
 	}
+	
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {

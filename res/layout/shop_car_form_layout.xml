@@ -366,7 +366,6 @@
                         />
                 </RelativeLayout>
                 <RelativeLayout
-                    android:id="@+id/rl_aliPay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/good_detail_item_bg">

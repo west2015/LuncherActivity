@@ -2,6 +2,7 @@ package com.nhd.mall.activity;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -22,6 +23,8 @@ import com.nhd.mall.asyncTask.IsCollectGet;
 import com.nhd.mall.asyncTask.ProductDetailGet;
 import com.nhd.mall.entity.AddCarEntity;
 import com.nhd.mall.entity.AddCollectEntity;
+import com.nhd.mall.entity.CarEntity;
+import com.nhd.mall.entity.CarList;
 import com.nhd.mall.entity.OrderFiledEntity;
 import com.nhd.mall.entity.OrderProductEntity;
 import com.nhd.mall.entity.ProductDetailEntity;
@@ -193,15 +196,36 @@ public class GoodsDetailActivity extends ModelActivity implements OnAsyncTaskDat
                     return;
                 }
                 else{
-                    Bundle bundleForm = new Bundle();
-                    bundleForm.putInt("count",nowCount);
-                    bundleForm.putSerializable("product",productDetailEntity);
-                    bundleForm.putSerializable("map",pamereterMap);
-                    new startIntent(GoodsDetailActivity.this,MakeFormActivity.class,bundleForm);
+                	OrderProductEntity ope = new OrderProductEntity();
+                    ope.setProductId(productId);
+                    ope.setNum(nowCount);
+                    ope.setName(productDetailEntity.getName());
+                    ope.setPrice(productDetailEntity.getPrice());
+                    ope.setOrderFields(new OrderFiledEntity[0]);
+                    // Test
+                    ope.setGetway(1);
+                    
+                    CarEntity[] mEntity = new CarEntity[1];
+                    mEntity[0] = new CarEntity();
+                    mEntity[0].setOrderProduct(ope);
+                    CarList mList = new CarList();
+                    mList.setCars(mEntity);
+                    
+//            		Intent intent = new Intent(GoodsDetailActivity.this,ShopCarMakeFormActivity.class);
+            		Bundle bundleForm = new Bundle();
+            		bundleForm.putInt("storeid", productDetailEntity.getStoreId());
+            		bundleForm.putSerializable("carlist", mList);
+            		new startIntent(GoodsDetailActivity.this,ShopCarMakeFormActivity.class,bundleForm);
+                    
+//                    Bundle bundleForm = new Bundle();
+//                    bundleForm.putInt("count",nowCount);
+//                    bundleForm.putSerializable("product",productDetailEntity);
+//                    bundleForm.putSerializable("map",pamereterMap);
                 }
 //                Toast.makeText(GoodsDetailActivity.this,"此商品只支持商城内购买",1).show();
                 break;
             case R.id.btn_add_car:
+            	Toast.makeText(GoodsDetailActivity.this, "处理中...", Toast.LENGTH_SHORT).show();
                 int carCount = Integer.parseInt(tvCount.getText().toString());
                 if(carCount==0){
                     Toast.makeText(GoodsDetailActivity.this,"请选择购买量",Toast.LENGTH_SHORT).show();
@@ -210,7 +234,7 @@ public class GoodsDetailActivity extends ModelActivity implements OnAsyncTaskDat
                 else{
                     if(productDetailEntity==null)return;
                     if(MainApplication.getInstance().getMember()==null){
-                       new startIntent(GoodsDetailActivity.this,LoginActivity.class);
+                    	new startIntent(GoodsDetailActivity.this,LoginActivity.class);
                         return;
                     }
                     memberId = MainApplication.getInstance().getMember().getId();
@@ -329,24 +353,25 @@ public class GoodsDetailActivity extends ModelActivity implements OnAsyncTaskDat
         while (activity.getParent() != null) {
             activity = activity.getParent();
         }
-        View view = null;
-        view = LayoutInflater.from(GoodsDetailActivity.this).inflate(R.layout.add_into_car_success_layout, null);
-        view.findViewById(R.id.btnSure).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopCarDialog.dismiss();
-            }
-        });
-        view.findViewById(R.id.btnQuit).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopCarDialog.dismiss();
-            }
-        });
-        shopCarDialog = new Dialog(activity, R.style.planDialog);
-        shopCarDialog.setCancelable(true);
-        shopCarDialog.setContentView(view);
-        shopCarDialog.show();
+        Toast.makeText(activity, "已添加到购物车!", Toast.LENGTH_SHORT).show();
+//        View view = null;
+//        view = LayoutInflater.from(GoodsDetailActivity.this).inflate(R.layout.add_into_car_success_layout, null);
+//        view.findViewById(R.id.btnSure).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                shopCarDialog.dismiss();
+//            }
+//        });
+//        view.findViewById(R.id.btnQuit).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                shopCarDialog.dismiss();
+//            }
+//        });
+//        shopCarDialog = new Dialog(activity, R.style.planDialog);
+//        shopCarDialog.setCancelable(true);
+//        shopCarDialog.setContentView(view);
+//        shopCarDialog.show();
     }
     /**
      * banner滑动监听
