@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#333333</color>
+    <color name="club_topic_tqjq">#38948b</color>
+    <color name="background">#fefefe</color>
+     <color name="white">#ffffff</color>
+     <color name="gray">#CCCCCC</color>
+     <color name="blue">#0067B2</color>
+     <color name="red">#f24360</color>
+     <color name="text_red">#f24360</color>
+     <color name="text_balck">#333333</color>
+     <color name="text_grey">#8d8d8d</color>
+      <color name="translucents">#00000000</color>
+    <color name="txtclick">#f24360</color>
+    <color name="txtunclick">#8d8d8d</color>
+       <color name="address">#ffffff</color>
+        <color name="main_bg">#f1f1f1</color>
+        <color name="goods_price">#f24360</color>
+        <color name="goods_buy_number">#bababa</color>
+    <color name="possible_result_points">#c0ffbd21</color>
+    <color name="result_text">#ff000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="viewfinder_laser">#ffcc0000</color>
+    <color name="viewfinder_mask">#cb000000</color>
+    <color name="viewfinder_frame">#ff0000ff</color>
+    <color name="backgroud">#ffffffff</color>
+    <color name="title_tv_color">#ffffffff</color>
+
+</resources>

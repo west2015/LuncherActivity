@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg">
+
+    <TextView
+        android:id="@+id/tcClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="清空历史"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="16sp"
+        android:textColor="@color/txtclick"
+        android:visibility="gone"
+       />
+
+    <GridView
+        android:id="@+id/searchGridview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="2"
+        android:cacheColorHint="@android:color/transparent"
+        android:listSelector="@color/translucents"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="20dp"
+        android:verticalSpacing="15dp"
+        android:layout_below="@+id/tcClear"
+        android:layout_marginTop="5dp"
+        android:scrollbars="none"
+       />
+
+    <RelativeLayout
+        android:id="@+id/rl_have_no_history"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+     >
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/have_no_search"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/textView"
+           />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="没有搜索记录"
+            android:layout_centerInParent="true"
+            android:textSize="18sp"
+            android:textColor="@color/txtunclick"
+            android:id="@+id/textView" />
+    </RelativeLayout>
+
+</RelativeLayout>

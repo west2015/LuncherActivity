@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f1f1f1" >
+
+    <RelativeLayout
+        android:id="@+id/rl_no_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_bg"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:background="@drawable/have_no_form"
+            android:layout_above="@+id/gtToMall"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp" />
+
+        <Button
+            android:id="@+id/gtToMall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="去逛逛"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"
+            android:background="@drawable/my_form_btn_bg"
+            android:padding="10dp"
+            android:clickable="false"
+            />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="#cccccc"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp" />
+
+    <ListView
+        android:id="@+id/orders"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:paddingTop="20dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="0dp"
+        android:fadingEdge="none"  
+        android:divider="#00000000"
+        android:dividerHeight="15dp" >
+    </ListView>
+    
+     
+
+</LinearLayout>

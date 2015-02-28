@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/member_head_modify_devide"
+        android:id="@+id/linearLayout"></LinearLayout>
+
+    <TextView
+        android:id="@+id/tvShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="分享给好友"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:textSize="20sp"
+        android:textColor="@color/txtclick"
+         />
+
+    <ImageView
+        android:id="@+id/ivClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tvShare"
+        android:background="@drawable/two_dim_code_delete"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+      />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivClose"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="10dp"
+        android:paddingBottom="10dp"
+        >
+
+        <RelativeLayout
+            android:id="@+id/rl_sina"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ivSina"
+                android:background="@drawable/share_sina"
+                android:layout_centerInParent="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvSina"
+                android:layout_below="@+id/ivSina"
+                android:text="新浪微博"
+                android:textSize="16sp"
+                android:textColor="@color/txtunclick"
+                android:layout_centerHorizontal="true"
+              />
+        </RelativeLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/share_weibo_devide">
+            </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/rl_friends"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ivFriends"
+                android:background="@drawable/share_wx_quan"
+                android:layout_centerInParent="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvFriends"
+                android:layout_below="@+id/ivFriends"
+                android:text="朋友圈"
+                android:textSize="16sp"
+                android:textColor="@color/txtunclick"
+                android:layout_centerHorizontal="true"
+                />
+        </RelativeLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/share_weibo_devide">
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/rl_weChat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ivChat"
+                android:background="@drawable/share_wechat"
+                android:layout_centerInParent="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvChat"
+                android:layout_below="@+id/ivChat"
+                android:text="微信"
+                android:textSize="16sp"
+                android:textColor="@color/txtunclick"
+                android:layout_centerHorizontal="true"
+                />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</RelativeLayout>

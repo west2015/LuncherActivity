@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+  >
+    <RadioGroup
+        android:id="@+id/theme_rg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_title"
+        android:orientation="horizontal"
+        android:background="@color/white"
+
+        >
+
+        <RadioButton
+            android:id="@+id/theme_rbMr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:text="默认"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@drawable/txt_search_click"
+            android:background="@drawable/goods_moren_rb_click"
+            />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/theme_rbxl"
+            android:button="@null"
+            android:text="销量"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@drawable/txt_search_click"
+            android:background="@drawable/goods_xiaoliang_rb_click"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/theme_rbJg"
+            android:button="@null"
+            android:text="价格"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@drawable/txt_search_click"
+            android:background="@drawable/goods_price_rb_click"/>
+    </RadioGroup>
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/themesviewPager"
+        android:layout_below="@+id/theme_rg"
+        android:background="@color/main_bg"
+        />
+
+</RelativeLayout>

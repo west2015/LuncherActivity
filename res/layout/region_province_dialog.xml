@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content" android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bean_count_select_bg"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="12dp"
+        >
+        <TextView
+            android:id="@+id/tvModifyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择省份"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:textSize="18sp"
+            android:textColor="@color/txtclick"
+            />
+        <LinearLayout
+            android:id="@+id/ll_devide"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bean_count_devide"
+            android:layout_below="@+id/tvModifyTitle"
+            android:layout_marginTop="10dp">
+        </LinearLayout>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/listView"
+            android:layout_below="@+id/ll_devide"
+            style="@style/listViewStyle2"/>
+    </RelativeLayout>
+</RelativeLayout>

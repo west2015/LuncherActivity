@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+    <RelativeLayout
+        android:id="@+id/rlImg"
+        android:layout_width="97dp"
+        android:layout_height="wrap_content"
+       >
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:background="@drawable/goods_mr_img"
+            android:layout_alignParentLeft="true"
+            />
+        <TextView
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:text="为打过来见到过kdj刚打开估计"
+            android:maxLines="2"
+            android:layout_below="@+id/imageView"
+            android:layout_alignLeft="@+id/imageView"
+            android:layout_marginTop="5dp"
+            android:id="@+id/textView"
+            android:textColor="@color/black"/>
+        </RelativeLayout>
+</RelativeLayout>

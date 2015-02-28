@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bean_count_select_bg"
+        android:layout_centerHorizontal="true"
+   >
+
+        <TextView
+            android:id="@+id/tvModifyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="修改数量"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="18sp"
+            android:textColor="@color/txtclick"
+           />
+        <TextView
+        android:id="@+id/tvShengyu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="剩余:"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+         android:layout_toLeftOf="@+id/tvShengyu"
+         android:layout_alignTop="@+id/tvModifyTitle"
+        />
+        <TextView
+            android:id="@+id/tvShengyu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/txtclick"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_alignTop="@+id/tvModifyTitle"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_devide"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bean_count_devide"
+            android:layout_below="@+id/tvModifyTitle"
+            android:layout_marginTop="10dp">
+            </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_devide"
+            android:padding="10dp"
+            android:id="@+id/rl_add">
+
+            <Button
+                android:id="@+id/btnBinus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:textSize="35sp"
+                android:background="@drawable/bean_count_add_bg"
+                android:layout_toLeftOf="@+id/etCount"
+                android:layout_marginRight="10dp"
+                />
+            <EditText
+                android:id="@+id/etCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="@drawable/bean_count_et_bg"
+                android:layout_centerHorizontal="true"
+                android:inputType="number"
+                />
+            <Button
+                android:id="@+id/btnAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:textSize="35sp"
+                android:background="@drawable/bean_count_add_bg"
+                android:layout_toRightOf="@+id/etCount"
+                android:layout_marginLeft="10dp"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="确认"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:id="@+id/btnSure"
+                android:layout_below="@+id/btnBinus"
+                android:layout_alignLeft="@+id/btnBinus"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bean_count_sure"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="取消"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:id="@+id/btnQuit"
+                android:layout_below="@+id/btnAdd"
+                android:layout_alignRight="@+id/btnAdd"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bean_count_quit"/>
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</RelativeLayout>

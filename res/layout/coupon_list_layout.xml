@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg">
+
+    <LinearLayout
+        android:id="@+id/ll_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnBuyCoupon"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+   			android:background="@color/red"
+   			android:singleLine="true"
+   			android:ellipsize="end"
+   			android:text="购买优惠券"
+   			android:textSize="18sp"
+   			android:textColor="@color/white"/>
+        <Button 
+            android:id="@+id/btnGetCoupon"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@color/gray"
+   			android:singleLine="true"
+   			android:ellipsize="end"
+            android:text="免费领取优惠券"
+            android:textSize="18sp"
+            android:textColor="@color/white"/>
+	</LinearLayout>
+	<!-- CouponList -->	
+	<com.nhd.mall.widget.PullDownView
+        android:id="@+id/lvCoupon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_btn"
+        android:layout_marginTop="8dp"
+        android:scrollbars="none"/>
+	<!-- No Content View -->
+    <RelativeLayout
+        android:id="@+id/rl_have_no_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_btn"
+        android:visibility="gone">
+        
+        <ImageView
+            android:id="@+id/ivNoContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/have_no_store"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/tvNoContent"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:id="@+id/tvNoContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="暂无优惠券"
+            android:textSize="16sp"
+            android:textColor="@color/txtunclick"
+            android:layout_centerInParent="true"/>
+        
+        <Button
+            android:id="@+id/btnNoContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="去逛逛"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:layout_below="@+id/tvNoContent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/my_form_btn_bg"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/ivLoad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/load"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+</RelativeLayout>

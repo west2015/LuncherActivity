@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RadioGroup
+        android:id="@+id/beanRg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_title"
+        android:orientation="horizontal"
+        android:background="@color/white"
+
+        >
+        <RadioButton
+            android:id="@+id/rb_current"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:text="当前疯豆"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@drawable/txt_search_click"
+            android:background="@drawable/search_btn_click"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/search_devide"
+            android:orientation="vertical"
+            android:id="@+id/linearLayout">
+        </LinearLayout>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/rb_detail"
+            android:button="@null"
+            android:text="疯豆明细"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@drawable/txt_search_click"
+            android:background="@drawable/search_btn_click"/>
+    </RadioGroup>
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/beanPager"
+        android:layout_below="@+id/beanRg"
+        android:background="@color/main_bg"
+        />
+    <RelativeLayout
+        android:id="@+id/rl_no_bean"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_bg"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:background="@drawable/have_no_bean"
+            android:layout_above="@+id/gtToMall"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp" />
+
+        <Button
+            android:id="@+id/gtToMall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="去逛逛"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"
+            android:background="@drawable/my_form_btn_bg"
+            android:padding="10dp"
+            />
+    </RelativeLayout>
+</RelativeLayout>

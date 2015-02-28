@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/main_bg"
+    android:id="@+id/daohan">
+    <TextView
+        android:id="@+id/daoHanTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="楼层导航"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:textSize="18sp"
+        android:textColor="@color/txtclick"
+        />
+    <LinearLayout
+        android:id="@+id/daoHan_ll_devide"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bean_count_devide"
+        android:layout_below="@+id/daoHanTitle"
+        android:layout_marginTop="10dp">
+    </LinearLayout>
+    <com.nhd.mall.widget.PullDownView
+        android:id="@+id/daoHangListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@drawable/shop_devide"
+        android:layout_below="@+id/daoHan_ll_devide"
+        android:scrollbars="none"
+        />
+</RelativeLayout>

@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutModelMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/includeHead"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        layout="@layout/model_head" />
+
+    <RelativeLayout
+        android:id="@+id/layoutContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/includeHead" />
+
+    <ImageView
+        android:id="@+id/imgTopShadow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/includeHead"
+        android:background="@drawable/model_top_shadow"
+        android:contentDescription="@string/app_name" />
+
+    <ImageView
+        android:id="@+id/ivMasks"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/app_name"
+        android:visibility="gone" />
+    
+</RelativeLayout>

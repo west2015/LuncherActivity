@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bean_count_select_bg"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="25dp"
+        android:paddingBottom="25dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        >
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="使用"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:id="@+id/btnUse"
+            android:background="@drawable/buy_now"
+            />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="查看规则"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:id="@+id/btnQuit"
+                    android:background="@drawable/coupon_check"
+                    android:layout_marginTop="15dp"
+                    android:layout_below="@+id/btnUse"
+                    />
+    </RelativeLayout>
+</RelativeLayout>

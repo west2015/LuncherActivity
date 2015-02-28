@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <RelativeLayout
+        android:id="@+id/ll_img"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="8dp"
+        android:gravity="center_horizontal">
+        <ImageView
+            android:id="@+id/ivIconTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/my_freight_img_two"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            />
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/my_freight_img_one_unclick"
+            android:layout_centerHorizontal="true"
+            />
+        </RelativeLayout>
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/ll_img"
+        android:layout_marginLeft="10dp"
+        android:layout_alignTop="@+id/ll_img"
+        android:textColor="@color/txtunclick"
+      />
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/ll_img"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/tvContent"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/txtunclick"
+        />
+
+
+</RelativeLayout>

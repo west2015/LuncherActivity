@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<style name="Theme" parent="android:Theme.Holo.Light">
+        <item name="android:windowAnimationStyle">@style/noAnimation</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>&lt;!&ndash; actionbar底部阴影 &ndash;&gt;
+    </style>-->
+</resources>

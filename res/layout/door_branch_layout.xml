@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ListView
+        android:id="@+id/lvDoor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/listViewStyle"
+        android:scrollbars="none"
+       />
+    <com.nhd.mall.widget.PullDownView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lvBranch"
+        android:scrollbars="none"
+        android:visibility="gone"
+        />
+</RelativeLayout>

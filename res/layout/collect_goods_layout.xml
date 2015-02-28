@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg">
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <CheckBox
+            android:id="@+id/check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:button="@drawable/chehkbox_check"
+            />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全部商品"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/check"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_devide"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shop_devide"
+        android:layout_below="@+id/rl_title">
+    </LinearLayout>
+    <com.nhd.mall.widget.PullDownView
+        android:id="@+id/lvStore"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/translucents"
+        android:scrollbars="none"
+        android:layout_below="@+id/ll_devide"
+        />
+    <RelativeLayout
+        android:id="@+id/rl_no_store"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_bg"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:background="@drawable/have_no_goods"
+            android:layout_above="@+id/gtToMall"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp" />
+
+        <Button
+            android:id="@+id/gtToMall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="去逛逛"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"
+            android:background="@drawable/my_form_btn_bg"
+            android:padding="10dp"
+            android:clickable="false"
+            />
+    </RelativeLayout>
+</RelativeLayout>

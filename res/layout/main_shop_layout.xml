@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg">
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/main_banner_bg"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:id="@+id/rlAddress"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/titilebtnbg"
+            android:gravity="center">
+            <Button
+                android:id="@+id/btnDaohan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/daohan"
+                android:layout_centerInParent="true"/>
+               />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/rlAddress"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/rlEwm"
+            android:background="@drawable/search_et_bg"
+            >
+            <Button
+                android:id="@+id/btnSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/search_et_icon"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                />
+            <EditText
+                android:id="@+id/etSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:singleLine="true"
+                android:gravity="center_vertical|left"
+                android:layout_toRightOf="@+id/btnSearch"
+                android:hint="搜索商品/品牌"
+                android:textColorHint="@color/gray"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/translucents"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlEwm"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@drawable/dpad_down"
+            android:layout_alignParentRight="true"
+            android:gravity="center">
+            <Button
+                android:id="@+id/btnEwm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/search_ewm"
+                />
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <com.nhd.mall.widget.LineGridView
+        android:id="@+id/gvMenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:cacheColorHint="@android:color/transparent"
+        android:childDivider="@android:color/transparent"
+        android:divider="@android:color/transparent"
+        android:fadingEdge="none"
+        android:layout_below="@+id/rl_title"
+        android:gravity="center"
+        android:scrollbars="none"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="3"
+        />
+
+    <RelativeLayout
+        android:id="@+id/rl_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_title"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivLoad"
+            android:layout_centerInParent="true"
+            android:background="@drawable/load"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="正在努力加载中...."
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:id="@+id/textView"
+            android:layout_below="@+id/ivLoad"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>

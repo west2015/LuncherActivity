@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="350dp"
+        android:background="@drawable/bean_count_select_bg"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="12dp"
+        >
+        <TextView
+            android:id="@+id/tvModifyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="使用规则"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:textSize="18sp"
+            android:textColor="@color/txtclick"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:background="@drawable/two_dim_code_delete"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="8dp"
+            />
+        <LinearLayout
+            android:id="@+id/ll_devide"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bean_count_devide"
+            android:layout_below="@+id/imageView"
+            android:layout_marginTop="10dp">
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            android:layout_below="@+id/ll_devide"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:text="1.优惠券必须在限定时间内使用，过期无效。\r\n\r\n2.每种面额的优惠券如果有限定使用专柜，则在其他专柜不可使用。\r\n\r\n3.优惠券不兑换，不找零。\r\n\r\n4.最终解释权归新华都所有。"
+           />
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout android:id="@+id/rl_title" android:layout_width="match_parent" android:layout_height="48dp" android:background="@drawable/main_banner_bg" android:layout_alignParentTop="true" android:layout_alignParentLeft="true" android:layout_alignParentStart="true">
+    <Button android:id="@+id/btnBack" android:layout_width="56dp" android:layout_height="wrap_content" android:layout_alignParentLeft="true" android:layout_centerVertical="true" android:background="@drawable/btnback" />
+     <RelativeLayout android:id="@+id/rl_search" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_toRightOf="@+id/btnBack" android:layout_centerVertical="true" android:layout_toLeftOf="@+id/rlEwm" android:background="@drawable/search_et_bg">
+    <Button android:id="@+id/btnSearch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/search_et_icon" android:layout_centerVertical="true" android:layout_marginLeft="12dp" />
+    <EditText android:id="@+id/etSearch" android:layout_width="match_parent" android:layout_height="match_parent" android:singleLine="true" android:gravity="center_vertical|left" android:layout_toRightOf="@+id/btnSearch" android:hint="搜索商家/品牌" android:layout_marginLeft="10dp" android:layout_marginRight="16dp" android:background="@color/translucents" android:layout_centerVertical="true" />
+</RelativeLayout>
+</RelativeLayout>
+     <RadioGroup android:id="@+id/couponRg" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@+id/rl_title" android:orientation="horizontal" android:background="@color/white">
+    <RadioButton android:id="@+id/rb_no_use" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:button="@null" android:checked="true" android:text="默认" android:gravity="center" android:textSize="18sp" android:textColor="@drawable/txt_search_click" android:background="@drawable/search_btn_click" android:drawableRight="@drawable/search_devide" />
+    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:id="@+id/rb_using" android:button="@null" android:text="楼层" android:gravity="center" android:textSize="18sp" android:textColor="@drawable/txt_search_click" android:background="@drawable/search_btn_click" android:drawableRight="@drawable/search_devide" />
+    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:id="@+id/rb_used" android:button="@null" android:text="分类" android:gravity="center" android:textSize="18sp" android:textColor="@drawable/txt_search_click" android:background="@drawable/search_btn_click" />
+</RadioGroup>
+    <android.support.v4.view.ViewPager android:layout_width="match_parent" android:layout_height="match_parent" android:id="@+id/couponPager" android:layout_below="@+id/couponRg" android:background="@color/main_bg" />
+</RelativeLayout>

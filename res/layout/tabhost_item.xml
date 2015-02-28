@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+      <ImageView
+            android:id="@+id/imgHostItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+          />
+     <TextView
+         android:id="@+id/tvPoint"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:background="@drawable/my_freight_img_one_click"
+         android:layout_alignTop="@+id/imgHostItem"
+         android:layout_alignRight="@+id/imgHostItem"
+         android:layout_marginTop="18dp"
+         android:layout_marginRight="12dp"
+         android:visibility="gone"
+         android:textColor="@color/white"
+         android:textSize="10sp"
+         android:gravity="center"/>
+</RelativeLayout>
