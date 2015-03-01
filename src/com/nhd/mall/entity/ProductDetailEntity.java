@@ -29,9 +29,17 @@ public class ProductDetailEntity implements Serializable {
     private double freightRule;
     private String number;
     private double oldPrice;
+    private Integer getway;
 
+	public Integer getGetway() {
+		return getway;
+	}
 
-    public String getNumber() {
+	public void setGetway(Integer getway) {
+		this.getway = getway;
+	}
+
+	public String getNumber() {
         return number;
     }
 

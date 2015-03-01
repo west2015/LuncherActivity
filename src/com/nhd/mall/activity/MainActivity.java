@@ -106,10 +106,12 @@ public class MainActivity extends TabActivity implements OnClickListener,MainApp
             }
         }
     }
+    
     @Override
     public void onLoginChange(Member member) {
         MainApplication.getInstance().getBeanCountAsyn();
     }
+    
     private void findView() {
 	    mTabHost = getTabHost();
 	    shopCar = LayoutInflater.from(this).inflate(R.layout.tab_item_shopcar,null);

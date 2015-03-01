@@ -195,15 +195,17 @@ public class GoodsDetailActivity extends ModelActivity implements OnAsyncTaskDat
                 Toast.makeText(GoodsDetailActivity.this,"请选择购买量",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                else{
+                else
+                if(productDetailEntity.getGetway() != null){
                 	OrderProductEntity ope = new OrderProductEntity();
                     ope.setProductId(productId);
-                    ope.setNum(nowCount);
                     ope.setName(productDetailEntity.getName());
                     ope.setPrice(productDetailEntity.getPrice());
+                    ope.setNum(nowCount);
+                    ope.setGetway(productDetailEntity.getGetway());
+                    ope.setFreight(productDetailEntity.getFreight());
+                    ope.setStoreId(productDetailEntity.getStoreId());
                     ope.setOrderFields(new OrderFiledEntity[0]);
-                    // Test
-                    ope.setGetway(1);
                     
                     CarEntity[] mEntity = new CarEntity[1];
                     mEntity[0] = new CarEntity();
@@ -211,18 +213,13 @@ public class GoodsDetailActivity extends ModelActivity implements OnAsyncTaskDat
                     CarList mList = new CarList();
                     mList.setCars(mEntity);
                     
-//            		Intent intent = new Intent(GoodsDetailActivity.this,ShopCarMakeFormActivity.class);
             		Bundle bundleForm = new Bundle();
             		bundleForm.putInt("storeid", productDetailEntity.getStoreId());
             		bundleForm.putSerializable("carlist", mList);
             		new startIntent(GoodsDetailActivity.this,ShopCarMakeFormActivity.class,bundleForm);
-                    
-//                    Bundle bundleForm = new Bundle();
-//                    bundleForm.putInt("count",nowCount);
-//                    bundleForm.putSerializable("product",productDetailEntity);
-//                    bundleForm.putSerializable("map",pamereterMap);
                 }
-//                Toast.makeText(GoodsDetailActivity.this,"此商品只支持商城内购买",1).show();
+                else
+                	Toast.makeText(GoodsDetailActivity.this,"此商品只支持商城内购买",1).show();
                 break;
             case R.id.btn_add_car:
             	Toast.makeText(GoodsDetailActivity.this, "处理中...", Toast.LENGTH_SHORT).show();
@@ -232,7 +229,11 @@ public class GoodsDetailActivity extends ModelActivity implements OnAsyncTaskDat
                     return;
                 }
                 else{
-                    if(productDetailEntity==null)return;
+                    if(productDetailEntity==null) return;
+                    if(productDetailEntity.getGetway() == null){
+                    	Toast.makeText(GoodsDetailActivity.this, "此商品只支持商城内购买", 1).show();
+                    	return ;
+                    }
                     if(MainApplication.getInstance().getMember()==null){
                     	new startIntent(GoodsDetailActivity.this,LoginActivity.class);
                         return;
@@ -246,6 +247,7 @@ public class GoodsDetailActivity extends ModelActivity implements OnAsyncTaskDat
                     order.setNum(carCount);
                     order.setName(productDetailEntity.getName());
                     order.setPrice(productDetailEntity.getPrice());
+                    order.setGetway(productDetailEntity.getGetway());
                     StringBuffer sb = new StringBuffer();
                     if(pamereterMap.size()>0){
                         OrderFiledEntity[] orderFields = new OrderFiledEntity[pamereterMap.size()];
@@ -267,7 +269,6 @@ public class GoodsDetailActivity extends ModelActivity implements OnAsyncTaskDat
                     tag = ADDCAR;
                     new AddCarPost(GoodsDetailActivity.this,addCarEntity).setListener(GoodsDetailActivity.this);
                 }
-//                Toast.makeText(GoodsDetailActivity.this, "此商品只支持商城内购买", 1).show();
                 break;
             case R.id.iv_to_car:
                 Bundle bundleCar = new Bundle();

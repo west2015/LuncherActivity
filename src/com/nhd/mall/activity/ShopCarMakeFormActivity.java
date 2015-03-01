@@ -94,7 +94,7 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
         		this.currentTag = product.getGetway();
         	}
         }
-        Toast.makeText(this, "currentTag = " + currentTag, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "currentTag = " + currentTag, Toast.LENGTH_SHORT).show();
         storeName = " ";
         if(MainApplication.getInstance().getStores() != null){
         	StoreEntity[] stores = MainApplication.getInstance().getStores();
