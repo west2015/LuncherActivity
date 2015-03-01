@@ -80,7 +80,6 @@ public class MyFormAdapter extends BaseAdapter {
             holder.tvStatus = (TextView)convertView.findViewById(R.id.tvStatus);
             holder.allcount = (TextView)convertView.findViewById(R.id.tvAllCount);
             holder.cb = (CheckBox)convertView.findViewById(R.id.checkBox);
-            holder.tvManName = (TextView)convertView.findViewById(R.id.tvManName);
             holder.tvGoodsCount = (TextView)convertView.findViewById(R.id.tvGoodsNum);
             holder.tvCouponName = (TextView)convertView.findViewById(R.id.tvCouponName);
             holder.tvOrder = (TextView)convertView.findViewById(R.id.tvOrder);
@@ -138,12 +137,6 @@ public class MyFormAdapter extends BaseAdapter {
         holder.tvOrder.setText(form.getOrderNumber()==null?"":form.getOrderNumber());
         holder.allcount.setText("￥"+String.valueOf(form.getPayment()));
         AddCustomerAddress address = form.getAddress();
-        if(address==null){
-            holder.tvManName.setText("");
-        }
-        else{
-            holder.tvManName.setText(address.getName()==null?"":address.getName());
-        }
         if(form.getOrderType()!=null&&!form.getOrderType().equals("1")){   //是优惠券
             holder.tvGoodsCount.setText(form.getCoupons()==null?"0件":form.getCoupons().length+"件");
             //在这里赋值优惠券名称
@@ -208,7 +201,6 @@ public class MyFormAdapter extends BaseAdapter {
         private TextView tvDate,tvStatus,allcount;
         private Button btnFirst,btnSecond;
         private CheckBox cb;
-        private TextView tvManName;   //收货人
         private TextView tvGoodsCount; //货品数量
         private TextView tvOrder;
         //与优惠券有关的

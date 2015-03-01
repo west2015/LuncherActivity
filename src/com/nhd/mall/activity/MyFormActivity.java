@@ -14,10 +14,13 @@ import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -71,6 +74,11 @@ public class MyFormActivity extends ModelActivity implements MyFormAdapter.comme
     //查询支付宝账号时弹出的加载框
     private ImageView ivAliPro;
     private Dialog aliDialog;
+    
+ // 选择支付方式的弹出框
+ 	private Dialog methodPayDialog;
+ 	private CheckBox methodCheck;
+ 	private Button metEnsureBtn, metCancleBtn;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -213,8 +221,10 @@ public class MyFormActivity extends ModelActivity implements MyFormAdapter.comme
         if(entity==null||entity.length<=0)return;
         if(state.equals("0")){
             //点击这里进行第三方支付宝登录与支付在这之前先调用接口获取淘宝账号
-            startAliDialog();
-            new FinalStoreGet(MyFormActivity.this,entity[position].getStoreId(),MyFormActivity.this,position);
+        	// 点击这里进行第三方支付宝登录与支付在这之前先调用接口获取淘宝账号
+        	initMehtodPayDialog(position);
+//            startAliDialog();
+//            new FinalStoreGet(MyFormActivity.this,entity[position].getStoreId(),MyFormActivity.this,position);
         }
         else if(state.equals("1")||state.equals("2")){   //去退货
             //弹出一个弹出框确认是不是确认收货
@@ -470,4 +480,42 @@ public class MyFormActivity extends ModelActivity implements MyFormAdapter.comme
             }
         }
     }
+    
+    
+    /**
+	 * 初始支付方法对话框和设置监听并显示
+	 */
+	private void initMehtodPayDialog(final int position) {
+		View view = null;
+		view = LayoutInflater.from(MyFormActivity.this).inflate(
+				R.layout.dialog_method_pay, null);
+		this.methodPayDialog = new Dialog(this, R.style.Method_Pay_Dialog);
+		methodPayDialog.setContentView(view);
+		methodCheck = (CheckBox) view.findViewById(R.id.checkbox_method_pay);
+		metEnsureBtn = (Button) view.findViewById(R.id.button_met_ensure);
+		metEnsureBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if (methodCheck.isChecked()) {
+					startAliDialog();
+					new FinalStoreGet(MyFormActivity.this,entity[position].getStoreId(), MyFormActivity.this,
+							position);
+				} else
+					Toast.makeText(MyFormActivity.this, "请选择支付方式!", Toast.LENGTH_SHORT).show();
+			}
+		});
+		metCancleBtn = (Button) view.findViewById(R.id.button_met_cancle);
+		metCancleBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				methodPayDialog.cancel();
+				methodPayDialog = null;
+			}
+		});
+		methodPayDialog.show();
+	}
 }
