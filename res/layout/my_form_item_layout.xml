@@ -77,32 +77,54 @@
                 android:singleLine="true"
                 />
             <TextView
-                android:id="@+id/tvGoodsNumTitle"
+                android:id="@+id/tvManTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="商品数量:"
+                android:text="收件人:"
                 android:textSize="16sp"
                 android:textColor="@color/txtunclick"
                 android:layout_marginTop="5dp"
                 android:layout_below="@+id/tvOrderTitle"
                />
             <TextView
+                android:id="@+id/tvManName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/txtunclick"
+                android:layout_toRightOf="@+id/tvManTitle"
+                android:layout_marginLeft="5dp"
+                android:layout_alignTop="@+id/tvManTitle"
+                />
+            <TextView
                 android:id="@+id/tvGoodsNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:textColor="@color/txtunclick"
-                android:layout_toRightOf="@+id/tvGoodsNumTitle"
-                android:layout_marginLeft="5dp"
-                android:layout_alignTop="@+id/tvGoodsNumTitle"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tvOrderTitle"
                 />
-          
+            <TextView
+                android:id="@+id/tvGoodsNumTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="商品数量:"
+                android:textSize="16sp"
+                android:textColor="@color/txtunclick"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toLeftOf="@+id/tvGoodsNum"
+                android:layout_below="@+id/tvOrderTitle"
+                />
 
             <RelativeLayout
                 android:id="@+id/rlTypeCoupon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvGoodsNumTitle"
+                android:layout_below="@+id/tvManTitle"
               >
                 <TextView
                     android:id="@+id/tvCouponNameTitle"
