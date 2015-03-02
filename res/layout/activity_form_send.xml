@@ -11,34 +11,50 @@
         android:layout_margin="12dp"
         android:orientation="horizontal" >
 
-        <ImageView
+        <LinearLayout 
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/my_form_menu_shadow"
+            android:layout_weight="1">
+            <ImageView
             android:id="@+id/iv_all"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/my_form_menu_shadow"
             android:padding="1dp"
             android:src="@drawable/my_form_all" />
+            
+        </LinearLayout>
 
+        <LinearLayout 
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/my_form_menu_shadow"
+             android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1">
         <ImageView
             android:id="@+id/iv_pay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
             android:layout_weight="1"
-            android:background="@drawable/my_form_menu_shadow"
             android:padding="1dp"
             android:src="@drawable/my_form_to_pay_click" />
+        </LinearLayout>
 
+        <LinearLayout 
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/my_form_menu_shadow"
+            android:layout_weight="1">
         <ImageView
             android:id="@+id/iv_send"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/my_form_menu_shadow"
             android:padding="1dp"
             android:src="@drawable/my_form_to_send_click" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

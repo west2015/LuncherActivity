@@ -324,46 +324,6 @@ public class MallShopCarActivity extends ModelActivity implements View.OnClickLi
         findViewById(R.id.rl_progress).setVisibility(View.GONE);
         ivLoad.clearAnimation();
     }
-    //通过加减数量来改变实体类中的购买数量
-    //参数分别为 位置，构买量 商品单价，当前位置的订单实体类
-    @Override
-    public void getAllPrice(int position, int count, double price,OrderProductEntity order,boolean boo,int sort) {
-        if(entity!=null){
-            entity[position].setOrderProduct(order);
-        }
-        if(boo){  //当前为选中状态
-            String s = allPrice.getText().toString();
-            String currentPrice = allPrice.getText().toString().substring(1,s.length());
-            if(sort == 1){//增加
-                allPrice.setText("￥"+(Double.parseDouble(currentPrice)+price));
-            }
-            else{
-                allPrice.setText("￥"+(Double.parseDouble(currentPrice)-price));
-            }
-
-        }
-    }
-	
-    //但勾选或取消checkbox的勾选时调用这个方法 统计合计量
-    @Override
-    public void getCheckPrice(int position,boolean boo) {
-        if(boo){         //选中状态
-            OrderProductEntity order = entity[position].getOrderProduct();
-            double  price = order.getPrice()*order.getNum();
-            String s = allPrice.getText().toString();
-            String currentPrice = allPrice.getText().toString().substring(1,s.length());
-            allPrice.setText("￥"+(Double.parseDouble(currentPrice)+price));
-            btnSure.setText("结算"+"("+sca.selectMap.size()+")");
-        }
-        else{
-            OrderProductEntity order = entity[position].getOrderProduct();
-            double  price = order.getPrice()*order.getNum();
-            String s = allPrice.getText().toString();
-            String currentPrice = allPrice.getText().toString().substring(1,s.length());
-            allPrice.setText("￥"+(Double.parseDouble(currentPrice)-price));
-            btnSure.setText("结算"+"("+sca.selectMap.size()+")");
-        }
-    }
     //通过全选与非全选然后修改合计的钱数量
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {

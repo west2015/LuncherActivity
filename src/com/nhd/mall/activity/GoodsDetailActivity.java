@@ -140,7 +140,7 @@ public class GoodsDetailActivity extends ModelActivity implements OnAsyncTaskDat
                 if(productDetailEntity==null)return;
                 if(productDetailEntity.getBuyLimit()!=null&&productDetailEntity.getBuyLimit()>0){
                     if(buyCount>=productDetailEntity.getBuyLimit()){
-                        Toast.makeText(GoodsDetailActivity.this,"不能超过限购量",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GoodsDetailActivity.this,"每个用户限购"+productDetailEntity.getBuyLimit()+"件哦！",Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
