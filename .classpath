@@ -5,5 +5,28 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry exported="true" kind="lib" path="libs/alipay.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/android_api_3_4.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/Android_SDK_v1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/android-support-v4.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/asmack.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/baidumapapi_v2_4_0.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/core.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/jackson-core-asl-1.9.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/jackson-mapper-asl-1.9.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/locSDK_3.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/message-digest-util.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/mframework.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/pushservice-4.0.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/ShareSDK-Core-2.1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/ShareSDK-SinaWeibo-2.1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/ShareSDK-TencentWeibo-2.1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/ShareSDK-Wechat-2.1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/ShareSDK-Wechat-Core-2.1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/ShareSDK-Wechat-Moments-2.1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/spring-android-auth.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/spring-android-core.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/spring-android-rest-template.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/umeng_sdk.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
