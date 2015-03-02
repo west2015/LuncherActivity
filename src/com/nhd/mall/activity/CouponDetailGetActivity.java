@@ -195,12 +195,6 @@ public class CouponDetailGetActivity extends ModelActivity implements View.OnCli
                 			MainApplication.getInstance().getMember().getId(),
                 			coupon.getId(),nowCount);
                 	get.setListener(CouponDetailGetActivity.this);
-//                	get = new CouponGet(CouponDetailGetActivity.this, , buyCount);
-//                    Bundle bundleForm = new Bundle();
-//                    bundleForm.putInt("count", nowCount);
-//                    bundleForm.putString("name", name);
-//                    bundleForm.putSerializable("product",coupon);
-//                    new startIntent(CouponDetailGetActivity.this,CouponFormActivity.class,bundleForm);
                 }
         }
     }
