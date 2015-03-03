@@ -29,6 +29,7 @@ import com.nhd.mall.util.CommonUtils;
 import com.nhd.mall.util.Shortcut;
 import com.nhd.mall.util.startIntent;
 import com.umeng.analytics.MobclickAgent;
+
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
 
@@ -134,6 +135,11 @@ public class MainActivity extends TabActivity implements OnClickListener,MainApp
             public void onTabChanged(String s) {
                 if(s.equals("tab_4")){
                     tvPoint.setVisibility(View.GONE);
+                }
+                if(s.equals("tab_3")){
+                	if(MainApplication.getInstance().getMember()==null){
+        				new startIntent(MainActivity.this, LoginActivity.class);
+        			}
                 }
             }
         });

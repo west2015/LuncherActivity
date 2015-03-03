@@ -7,6 +7,7 @@ import java.util.List;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -338,11 +339,20 @@ public class ShopCarAdapter  extends BaseAdapter {
 	                OrderProductEntity order = entity[position].getOrderProduct();
 	                int currentCount =  Integer.parseInt(etCount.getText().toString());
 	                if(order.getBuyLimit()!=0 && currentCount>=order.getBuyLimit()){
-	                    Toast.makeText(context,"每个用户限购"+order.getBuyLimit()+"件哦!",Toast.LENGTH_SHORT).show();
-	                    return;
+	                    
+	                	Toast toast = Toast.makeText(context,"每个用户限购"+order.getBuyLimit()+"件哦!",Toast.LENGTH_SHORT);
+	                    toast.getView().getBackground().setAlpha(90);
+	                    toast.setGravity(Gravity.CENTER, 0, 0);
+	                    toast.show();
+
+	                	
+	                	return;
 	                }
 	                if(currentCount>=order.getTotal()){
-	                    Toast.makeText(context,"库存不够",Toast.LENGTH_SHORT).show();
+	                	Toast toast = Toast.makeText(context,"库存不够",Toast.LENGTH_SHORT);
+	                    toast.getView().getBackground().setAlpha(90);
+	                    toast.setGravity(Gravity.CENTER, 0, 0);
+	                    toast.show();
 	                    return;
 	                }
 	                etCount.setText(String.valueOf(Integer.parseInt(etCount.getText().toString())+1));
@@ -357,7 +367,11 @@ public class ShopCarAdapter  extends BaseAdapter {
 	            @Override
 	            public void onClick(View view) {
 	                if(etCount.getText().toString().equals("1")){
-	                	Toast.makeText(context, "商品数量必须大于0！", Toast.LENGTH_SHORT).show();
+	                	Toast toast = Toast.makeText(context, "商品数量必须大于0！", Toast.LENGTH_SHORT);
+	                    toast.getView().getBackground().setAlpha(90);
+	                    toast.setGravity(Gravity.CENTER, 0, 0);
+	                    toast.show();
+
 	                    return;
 	                }
 	                etCount.setText(String.valueOf(Integer.parseInt(etCount.getText().toString())-1));

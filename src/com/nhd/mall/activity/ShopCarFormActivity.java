@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -399,7 +400,10 @@ public class ShopCarFormActivity extends ModelActivity implements RadioGroup.OnC
             }
         }
         if(selectList.size()<=0){
-            Toast.makeText(ShopCarFormActivity.this,"请选择商品购买量",Toast.LENGTH_SHORT).show();
+        	Toast toast = Toast.makeText(ShopCarFormActivity.this,"请选择商品购买量",Toast.LENGTH_SHORT);
+            toast.getView().getBackground().setAlpha(90);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
         }
         //计算最后的商品
         OrderProductEntity[] finalOrder = new OrderProductEntity[selectList.size()];

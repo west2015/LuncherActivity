@@ -13,46 +13,44 @@
 
         <LinearLayout 
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/my_form_menu_shadow"
-            android:layout_weight="1">
-        <ImageView
-            android:id="@+id/iv_all"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:padding="1dp"
-            android:src="@drawable/my_form_all" />
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <ImageView
+            android:id="@+id/iv_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/my_form_all"
+            android:background="@drawable/my_form_menu_shadow" />
+            
         </LinearLayout>
 
         <LinearLayout 
             android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-             android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:background="@drawable/my_form_menu_shadow"
-            android:layout_weight="1">
+             android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center">
         <ImageView
             android:id="@+id/iv_pay"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="1dp"
-            android:src="@drawable/my_form_to_pay_click" />
+            android:src="@drawable/my_form_to_pay_click"
+            android:background="@drawable/my_form_menu_shadow" />
         </LinearLayout>
+
         <LinearLayout 
             android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:background="@drawable/my_form_menu_shadow"
-            android:layout_weight="1">
-
+            android:gravity="center">
         <ImageView
             android:id="@+id/iv_take"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="1dp"
-            android:src="@drawable/my_form_to_take_click" />
+            android:src="@drawable/my_form_to_take_click"
+            android:background="@drawable/my_form_menu_shadow" />
         </LinearLayout>
     </LinearLayout>
 
