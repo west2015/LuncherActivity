@@ -1,6 +1,7 @@
 package com.nhd.mall.activity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -19,8 +20,12 @@ import com.nhd.mall.adapter.AreaSelectAdapter;
 import com.nhd.mall.api.AndroidServerFactory;
 import com.nhd.mall.app.MainApplication;
 import com.nhd.mall.asyncTask.AddCustomerAddressPost;
+import com.nhd.mall.asyncTask.AddressListGet;
 import com.nhd.mall.asyncTask.RegionGet;
+import com.nhd.mall.datebase.DbAddress;
 import com.nhd.mall.entity.AddCustomerAddress;
+import com.nhd.mall.entity.CustomerAddressEntity;
+import com.nhd.mall.entity.CustomerAddressEntityList;
 import com.nhd.mall.entity.RegionEntity;
 import com.nhd.mall.entity.RegionList;
 import com.nhd.mall.util.OnAsyncTaskDataListener;
@@ -39,9 +44,13 @@ import java.util.List;
  */
 public class AddAddressActivity extends ModelActivity implements View.OnClickListener,OnAsyncTaskUpdateListener,OnAsyncTaskDataListener {
     private AddCustomerAddress customer;
+    private CustomerAddressEntity address;
     private EditText etName,etPhone,etAddress,etZipCode;
     private TextView tvArea;
     private Long memberId=0L;
+    private AddressListGet adlg = null;
+    private CustomerAddressEntityList addressList = null;
+    private CustomerAddressEntity[] addressEntity = null;
     private RegionEntity[] provinceEntity;  //存放省份的类集合
     private RegionEntity[] cityEntity;//存放城市的类集合
     private RegionEntity[] areaEntity;//存放区域的类集合
@@ -80,21 +89,60 @@ public class AddAddressActivity extends ModelActivity implements View.OnClickLis
         etZipCode = (EditText)findViewById(R.id.etZipCode);
         tvArea = (TextView)findViewById(R.id.tvArea);
         tvArea.setOnClickListener(this);
+
+        getExtras();
         select();
         selectProvince();
         selectCity();
         selectArea();
     }
+    
+    private void getExtras(){
+    }
+    
     @Override
     public void getData(Object obj, String message) {
         if (message != null)
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         if (obj == null)
             return;
+        if(obj instanceof CustomerAddressEntityList){
+            addressList = (CustomerAddressEntityList) obj;
+            addressEntity = addressList.getAddress();
+            if(addressEntity != null && addressEntity.length <= 0){
+                Toast.makeText(AddAddressActivity.this,"添加成功",Toast.LENGTH_SHORT).show();
+                for(int i=0;i<addressEntity.length;++i){
+                	CustomerAddressEntity mEntity = addressEntity[i];
+                	if(	mEntity.getAddress().equals(customer.getAddress()) && 
+                    	mEntity.getName().equals(customer.getName()) &&
+                		mEntity.getMobile().equals(customer.getMobile()) &&
+                		mEntity.getMemberId().equals(customer.getMemberId()) &&
+                		mEntity.getZipcode().equals(customer.getZipcode()) &&
+                		mEntity.getArea().equals(customer.getArea()) ){
+                		address = mEntity;
+                		break;
+                	}
+                }
+            	Intent intent = new Intent();
+                intent.setClass(AddAddressActivity.this,ShopCarMakeFormActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("address",address);
+                intent.putExtras(bundle);
+                setResult(1,intent);
+                finish();
+            }
+            else{
+                Toast.makeText(AddAddressActivity.this,"添加失败",Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
         HashMap<String,String>map = (HashMap<String, String>) obj;
         if(map.get("success").equals("true")){
-            Toast.makeText(AddAddressActivity.this,"添加成功",Toast.LENGTH_SHORT).show();
-            finish();
+            adlg = new AddressListGet(this,memberId);
+            adlg.setListener(this);
+        }
+        else{
+            Toast.makeText(AddAddressActivity.this,"添加失败",Toast.LENGTH_SHORT).show();
         }
     }
     @Override

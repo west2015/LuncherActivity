@@ -21,6 +21,7 @@ import com.nhd.mall.entity.OrderProductEntity;
 import com.nhd.mall.entity.StoreEntity;
 import com.nhd.mall.util.OnAsyncTaskUpdateListener;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.common.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -221,9 +222,11 @@ public class MainApplication extends FrontiaApplication {
 	public void setLoginChangeListener(OnLoginChangeListener listener){
 		this.loginListener = listener;
 	}
+	
 	public interface OnLoginChangeListener{
 		void onLoginChange(Member member);
 	}
+	
 	@Override
 	public void onTerminate() {
 		super.onTerminate();
@@ -249,6 +252,14 @@ public class MainApplication extends FrontiaApplication {
     }
 
     public CustomerAddressEntity getCustomerAddress() {
+    	if(customerAddress != null){
+    		Log.e("123", customerAddress.getName());
+    		Toast.makeText(mContext, customerAddress.getName(), Toast.LENGTH_SHORT).show();
+    	}
+    	else{
+    		Log.e("123", "customerAddress is null");
+    		Toast.makeText(mContext, "customerAddress is null", Toast.LENGTH_SHORT).show();
+    	}
         return customerAddress;
     }
 

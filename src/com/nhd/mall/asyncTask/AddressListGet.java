@@ -33,7 +33,6 @@ public class AddressListGet {
     public void update(Long memberId) {
         this.memberId  = memberId;
         new DownloadTask().execute();
-
     }
 
     class DownloadTask extends AsyncTaskEx<Void, Void,Object> {

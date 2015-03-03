@@ -60,7 +60,6 @@ public class MallShopCarActivity extends ModelActivity implements View.OnClickLi
     private Button btnSure;
     private TextView tvFerightRule;
     private StoreListGet slg;
-
     
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +67,7 @@ public class MallShopCarActivity extends ModelActivity implements View.OnClickLi
         setTitle("购物车");
         find();
     }
+    
     private void find() {
         tvFerightRule = (TextView)findViewById(R.id.tvFreightRule);
         btnSure = (Button)findViewById(R.id.btnSure);
@@ -109,6 +109,7 @@ public class MallShopCarActivity extends ModelActivity implements View.OnClickLi
             slg.setListener(this);
         }
     }
+    
     //删除的方法
     public void delete(){
         idList.clear();
@@ -118,9 +119,14 @@ public class MallShopCarActivity extends ModelActivity implements View.OnClickLi
                 idList.add(car.getId());
             }
         }
-        Integer[]ids = new Integer[idList.size()];
-        ids = idList.toArray(ids);
-        new DeleteCarGet(MallShopCarActivity.this,ids).setListener(MallShopCarActivity.this);
+        if(idList.size() > 0){
+	        Integer[]ids = new Integer[idList.size()];
+	        ids = idList.toArray(ids);
+	        new DeleteCarGet(MallShopCarActivity.this,ids).setListener(MallShopCarActivity.this);
+        }
+        else{
+        	Toast.makeText(this, "请选择要删除的商品", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void setFreightRule(boolean boo,double rule){

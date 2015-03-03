@@ -14,7 +14,7 @@ public class AddCustomerAddress {
     private String tel;
     private String zipcode;
 
-    public Long getMemberId() {
+	public Long getMemberId() {
         return memberId;
     }
 

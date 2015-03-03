@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nhd.mall.R;
+import com.nhd.mall.app.MainApplication;
 import com.nhd.mall.entity.AddCustomerAddress;
 import com.nhd.mall.entity.CustomerAddressEntity;
 
@@ -18,7 +19,8 @@ import com.nhd.mall.entity.CustomerAddressEntity;
 public class CustomerAddressAdapter extends BaseAdapter {
     private Context context;
     private ViewHolder holder=null;
-    private CustomerAddressEntity[]custome;
+    private CustomerAddressEntity address;
+    private CustomerAddressEntity[] custome;
     private int click;
     private OnClickAddress listener;
 
@@ -27,12 +29,16 @@ public class CustomerAddressAdapter extends BaseAdapter {
         this.custome = custome;
         this.click = click;
         this.listener = (OnClickAddress) context;
+
+        this.address = MainApplication.getInstance().getCustomerAddress();
     }
+    
     public void update(CustomerAddressEntity[]custome,int click){
         this.custome = custome;
         this.click = click;
         notifyDataSetChanged();
     }
+    
     @Override
     public int getCount() {
         return custome==null?0:custome.length;
@@ -57,15 +63,23 @@ public class CustomerAddressAdapter extends BaseAdapter {
             holder.tvAddress = (TextView)convertView.findViewById(R.id.tvAddress);
             holder.tvName = (TextView)convertView.findViewById(R.id.tvName);
             holder.tvPhone = (TextView)convertView.findViewById(R.id.tvPhone);
+            holder.tvDefault = (TextView)convertView.findViewById(R.id.tvDefault);
             holder.rlAddress = (RelativeLayout)convertView.findViewById(R.id.rl_address);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder)convertView.getTag();
         }
-            holder.tvAddress.setText(customes.getAddress()==null?"":customes.getAddress());
-            holder.tvName.setText(customes.getName()==null?"":customes.getName());
-            holder.tvPhone.setText(customes.getMobile()==null?"":customes.getMobile());
+        // 判断是否为默认
+        if(customes.getId() == address.getId()){
+        	holder.tvDefault.setVisibility(View.VISIBLE);
+        }
+        else{
+        	holder.tvDefault.setVisibility(View.INVISIBLE);
+        }
 
+        holder.tvAddress.setText(customes.getAddress()==null?"":customes.getAddress());
+        holder.tvName.setText(customes.getName()==null?"":customes.getName());
+        holder.tvPhone.setText(customes.getMobile()==null?"":customes.getMobile());
 
         if(click==position){
             holder.rlAddress.setBackgroundResource(R.drawable.address_click_bg);
@@ -84,6 +98,7 @@ public class CustomerAddressAdapter extends BaseAdapter {
         return convertView;
     }
     private  class ViewHolder {
+    	private TextView tvDefault;
         private TextView tvName;
         private TextView tvPhone;
         private TextView tvAddress;

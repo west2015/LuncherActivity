@@ -133,6 +133,7 @@ public class GoodsDetailActivity extends ModelActivity implements OnAsyncTaskDat
             new IsCollectGet(this,memberId,productId).setListener(this);
         }
     }
+    
     @Override
     public void onClick(View view) {
         switch(view.getId()){
@@ -200,10 +201,13 @@ public class GoodsDetailActivity extends ModelActivity implements OnAsyncTaskDat
                 if(productDetailEntity==null)return;
                 int nowCount = Integer.parseInt(tvCount.getText().toString());
                 if(nowCount==0){
-                Toast.makeText(GoodsDetailActivity.this,"请选择购买量",Toast.LENGTH_SHORT).show();
+                	Toast.makeText(GoodsDetailActivity.this,"请选择购买量",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                else
+                if(MainApplication.getInstance().getMember()==null){
+                	new startIntent(GoodsDetailActivity.this,LoginActivity.class);
+                    return;
+                }
                 if(productDetailEntity.getGetway() != null){
                 	OrderProductEntity ope = new OrderProductEntity();
                     ope.setProductId(productId);
@@ -230,10 +234,14 @@ public class GoodsDetailActivity extends ModelActivity implements OnAsyncTaskDat
                 	Toast.makeText(GoodsDetailActivity.this,"此商品只支持商城内购买",1).show();
                 break;
             case R.id.btn_add_car:
-            	Toast.makeText(GoodsDetailActivity.this, "处理中...", Toast.LENGTH_SHORT).show();
                 int carCount = Integer.parseInt(tvCount.getText().toString());
                 if(carCount==0){
                     Toast.makeText(GoodsDetailActivity.this,"请选择购买量",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else
+                if(MainApplication.getInstance().getMember()==null){
+                	new startIntent(GoodsDetailActivity.this,LoginActivity.class);
                     return;
                 }
                 else{
@@ -279,12 +287,17 @@ public class GoodsDetailActivity extends ModelActivity implements OnAsyncTaskDat
                 }
                 break;
             case R.id.iv_to_car:
+                if(MainApplication.getInstance().getMember()==null){
+                	new startIntent(GoodsDetailActivity.this,LoginActivity.class);
+                    return;
+                }
                 Bundle bundleCar = new Bundle();
                 bundleCar.putString("sort","goods");
                 new startIntent(GoodsDetailActivity.this,MallShopCarActivity.class,bundleCar);
                 break;
         }
     }
+    
     @Override
     public void getDataSort(Object obj, String message, String sort) {
         if (message != null)
@@ -299,6 +312,7 @@ public class GoodsDetailActivity extends ModelActivity implements OnAsyncTaskDat
             ivCollect.setBackgroundResource(R.drawable.good_detail_collect_no_click);
         }
     }
+    
     @Override
     public void getData(Object obj, String message) {
         if (message != null)
@@ -325,10 +339,14 @@ public class GoodsDetailActivity extends ModelActivity implements OnAsyncTaskDat
         else{
             HashMap<String,String> map = (HashMap<String, String>) obj;
             if(map.get("success").equals("true")){
-                setShopCarDialog();
+            	Toast.makeText(this, "已成功添加至购物车！", Toast.LENGTH_SHORT).show();
+            }
+            else{
+            	Toast.makeText(this, "对不起，操作失败！", Toast.LENGTH_SHORT).show();
             }
         }
     }
+    
     public void initDetail(){
         if(productDetailEntity==null)return;
         tvName.setText(productDetailEntity.getName()==null?"":productDetailEntity.getName());

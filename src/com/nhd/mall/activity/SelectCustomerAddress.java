@@ -13,6 +13,7 @@ import com.nhd.mall.api.AndroidServerFactory;
 import com.nhd.mall.app.MainApplication;
 import com.nhd.mall.asyncTask.AddressListGet;
 import com.nhd.mall.asyncTask.DeleteAddressPost;
+import com.nhd.mall.datebase.DbAddress;
 import com.nhd.mall.entity.AddCustomerAddress;
 import com.nhd.mall.entity.CustomerAddressEntity;
 import com.nhd.mall.entity.CustomerAddressEntityList;
@@ -52,7 +53,14 @@ public class SelectCustomerAddress extends ModelActivity implements View.OnClick
         getButton(R.drawable.add_address).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new startIntent(SelectCustomerAddress.this,AddAddressActivity.class);
+            	Bundle bundle = new Bundle();
+            	if(entity == null || entity.length <=0){
+            		bundle.putBoolean("default", true);
+            	}
+            	else{
+            		bundle.putBoolean("default", false);
+            	}
+                new startIntent(SelectCustomerAddress.this,AddAddressActivity.class,bundle);
             }
         });
     }
@@ -88,12 +96,15 @@ public class SelectCustomerAddress extends ModelActivity implements View.OnClick
                 if(i!=click){
                     entityList.add(entity[i]);
                 }
+                else{
+                	new DbAddress(getApplicationContext()).update(null);
+                }
             }
             CustomerAddressEntity[]ce = new CustomerAddressEntity[entity.length-1];
             entity = entityList.toArray(ce);
             click =-1;
             caa.update(entity, click);
-    }
+        }
     }
 
     @Override
@@ -155,12 +166,13 @@ public class SelectCustomerAddress extends ModelActivity implements View.OnClick
     public void getClickPosition(int position) {
       click = position;
         if(sort!=null){
-         Intent intent = new Intent();
+        	Intent intent = new Intent();
             intent.setClass(SelectCustomerAddress.this,MakeFormActivity.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable("address",entity[position]);
             intent.putExtras(bundle);
             setResult(1,intent);
+            new DbAddress(getApplicationContext()).update(entity[position]);
             finish();
         }
         else{

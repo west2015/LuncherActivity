@@ -43,7 +43,7 @@ public class ShopCarAdapter  extends BaseAdapter {
     public HashMap<Integer,Boolean> selectMap = new HashMap<Integer, Boolean>();
     private checkAllPrice listenerPrice;
     //用一个map来保存所有订单的总价格
-    private HashMap<Integer,Double>priveMap = new HashMap<Integer, Double>();
+    private HashMap<Integer,Double> priveMap = new HashMap<Integer, Double>();
     public ImageLoader imageLoader;
     private int[] groupNumber;
     private boolean[] isEdit;
@@ -65,6 +65,7 @@ public class ShopCarAdapter  extends BaseAdapter {
             initGroup(entity);
         }
     }
+    
     public void update(CarEntity[] entity){
         this.entity = entity;
         if(entity!=null){
@@ -77,6 +78,7 @@ public class ShopCarAdapter  extends BaseAdapter {
         }
         notifyDataSetChanged();
     }
+    
     public void selectAll(CarEntity[] entity){
         if(entity != null){
             selectMap.clear();
@@ -311,6 +313,7 @@ public class ShopCarAdapter  extends BaseAdapter {
         holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            	selectMap.put(position, isChecked);
             	checkBoxesStatus.set(position, isChecked);
             	if(isChecked){
             		int startPosition = groupNumber[position];

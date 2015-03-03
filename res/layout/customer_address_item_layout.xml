@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,40 +10,49 @@
         android:layout_height="wrap_content"
         android:background="@drawable/address_bg"
         android:padding="12dp"
-       android:layout_marginLeft="10dp"
+		android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-       >
+        android:layout_marginTop="10dp">
+        
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/tvDefault"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:text="默认"
+	        android:textColor="@color/red"
+	        android:textSize="12sp"/>
+        
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/black"
             android:singleLine="true"
-            android:maxLength="15"
-           />
+            android:maxLength="15"/>
 
         <TextView
             android:id="@+id/tvPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/tvName"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/black"
             android:layout_marginLeft="20dp"
-            android:singleLine="true"
-            />
+            android:singleLine="true"/>
 
         <TextView
             android:id="@+id/tvAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvName"
+			android:layout_toLeftOf="@+id/tvDefault"
             android:layout_alignLeft="@+id/tvName"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_marginTop="10dp"
-            android:textColor="@color/black"
-            />
+            android:textColor="@color/black"/>
+
     </RelativeLayout>
 </RelativeLayout>

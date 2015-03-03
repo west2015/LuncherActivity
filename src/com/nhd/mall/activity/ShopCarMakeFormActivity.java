@@ -19,11 +19,13 @@ import com.nhd.mall.R;
 import com.nhd.mall.adapter.ShopCarMakeFormAdapter;
 import com.nhd.mall.api.AndroidServerFactory;
 import com.nhd.mall.app.MainApplication;
+import com.nhd.mall.asyncTask.AddressListGet;
 import com.nhd.mall.asyncTask.OrderFormPost;
 import com.nhd.mall.datebase.DbAddress;
 import com.nhd.mall.entity.CarEntity;
 import com.nhd.mall.entity.CarList;
 import com.nhd.mall.entity.CustomerAddressEntity;
+import com.nhd.mall.entity.CustomerAddressEntityList;
 import com.nhd.mall.entity.FormEntity;
 import com.nhd.mall.entity.FormStoreEntity;
 import com.nhd.mall.entity.Member;
@@ -44,6 +46,11 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
     private int storeId;
     private Integer currentTag;
     // 与收货信息有关的
+
+    private AddressListGet adlg = null;
+    private CustomerAddressEntityList addressList = null;
+    private CustomerAddressEntity[] addressEntity = null;
+    private CustomerAddressEntity address = null;
     private TextView tvName;
     private TextView tvPhone;
     private TextView tvAddress;
@@ -55,20 +62,20 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
     // 提交订单
     private Button btnSubmit;
 
-    private CustomerAddressEntity address;
     private CarList carList;
-    private CarEntity[] entity;
+    private CarEntity[] carEntity;
     private Dialog isBuyDialog = null; // 是否购买弹出框
     private String storeName;
     private double allPrice = 0;
     private double freight = 0;
-    
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shop_car_make_form_layout);
         setTitle("确认订单");
         find();
     }
+
     private void find() {
     	tvName = (TextView)findViewById(R.id.tv_name);
     	tvPhone = (TextView)findViewById(R.id.tv_phone);
@@ -84,11 +91,11 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
         if(getIntent().getExtras() != null){
         	storeId = (int)getIntent().getExtras().getInt("storeid");
         	carList = (CarList)getIntent().getExtras().getSerializable("carlist");
-        	entity = carList.getCars();
+        	carEntity = carList.getCars();
         	allPrice = 0;
         	freight = 0;
-        	for(int i=0;i<entity.length;++i){
-        		OrderProductEntity product = entity[i].getOrderProduct();
+        	for(int i=0;i<carEntity.length;++i){
+        		OrderProductEntity product = carEntity[i].getOrderProduct();
         		freight += product.getFreight();
         		allPrice += product.getFreight() + product.getPrice()*product.getNum();
         		this.currentTag = product.getGetway();
@@ -103,60 +110,88 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
         		break;
         	}
         }
-        sca = new ShopCarMakeFormAdapter(this,storeName,entity);
+        sca = new ShopCarMakeFormAdapter(this,storeName,carEntity);
         listView.setAdapter(sca);
+        adlg = new AddressListGet(this,memberId);
+        adlg.setListener(this);
         initCustomerAddress();
     }
 
     // 初始化收货信息
     private void initCustomerAddress() {
-        if(MainApplication.getInstance().getCustomerAddress() != null){
-            address = MainApplication.getInstance().getCustomerAddress();
+    	new DbAddress(getApplicationContext()).delete();
+        if(MainApplication.getInstance().getCustomerAddress() == null){
+        	if(addressEntity == null || addressEntity.length <=0){
+        		Toast.makeText(this, "addressEntity is not null!", Toast.LENGTH_SHORT).show();
+        		address = null;
+	            tvName.setText("");
+	            tvPhone.setText("");
+	        	tvAddress.setText("");
+	        	tvNoAddress.setText("您还没有收货地址，去添加地址吧!");
+        	}
+        	else{
+        		Toast.makeText(this, "addressEntity is null!", Toast.LENGTH_SHORT).show();
+        		address = addressEntity[0];
+        		new DbAddress(getApplicationContext()).update(address);
+        	}
+        }
+        else{
+    		Toast.makeText(this, "getCustomerAddress!", Toast.LENGTH_SHORT).show();
+        }
+        address = MainApplication.getInstance().getCustomerAddress();
+        if(address != null){
             tvName.setText("收货人： " + address.getName());
             tvPhone.setText(address.getMobile());
             tvAddress.setText("地址：" + address.getAddress());
             tvNoAddress.setText("");
         }
-        else{
-            tvName.setText("");
-            tvPhone.setText("");
-        	tvAddress.setText("");
-        	tvNoAddress.setText("您还没有收货地址，去添加地址吧!");
-        }
     }
+
     @Override
     public void getData(Object obj, String message) {
         if (message != null)
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-        if (obj == null) return;
-        HashMap<String,String> map = (HashMap<String, String>) obj;
-    	Intent intent = new Intent();
-        intent.setClass(ShopCarMakeFormActivity.this,MallShopCarActivity.class);
-        Bundle bundle = new Bundle();
-        if(map.get("success").equals("true")){
-        	buySuccessDialog();
-        	bundle.putBoolean("success", true);
+        if (obj == null)
+        	return;
+        if(obj instanceof CustomerAddressEntityList){
+            addressList = (CustomerAddressEntityList) obj;
+            addressEntity = addressList.getAddress();
+            initCustomerAddress();
+            return;
         }
-        else
-        if(map.get("success").equals("nostock")){
-             String s = map.get("message");
-             Toast.makeText(this, s==null?"":s, Toast.LENGTH_LONG).show();
-         	bundle.putBoolean("success", false);
+        else{
+	        HashMap<String,String> map = (HashMap<String, String>) obj;
+	    	Intent intent = new Intent();
+	        intent.setClass(ShopCarMakeFormActivity.this,MallShopCarActivity.class);
+	        Bundle bundle = new Bundle();
+	        if(map.get("success").equals("true")){
+	            Toast.makeText(this, "订单已生成，请及时完成付款!", Toast.LENGTH_SHORT).show();
+	            bundle.putBoolean("success", true);
+	        }
+	        else
+	        if(map.get("success").equals("nostock")){
+	        	String s = map.get("message");
+	        	Toast.makeText(this, s==null?"":s, Toast.LENGTH_LONG).show();
+	         	bundle.putBoolean("success", false);
+	        }
+	        intent.putExtras(bundle);
+	        setResult(1,intent);
         }
-        intent.putExtras(bundle);
-        setResult(1,intent);
     }
+
     @Override
     public void onClick(View view) {
         switch(view.getId()){
         case R.id.rl_top:
             Intent intent = new Intent();
-            intent.setClass(ShopCarMakeFormActivity.this,SelectCustomerAddress.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("sort","shopcar");
-            intent.putExtras(bundle);
+            if(address != null){
+	            intent.setClass(ShopCarMakeFormActivity.this,MakeFormSelectAddressActivity.class);
+            }
+            else{
+	            intent.setClass(ShopCarMakeFormActivity.this,AddAddressActivity.class);
+            }
             startActivityForResult(intent,1);
-        	break;
+            break;
         case R.id.btn_send:
             if(address==null){
                 Toast.makeText(ShopCarMakeFormActivity.this,"请选择收货地址",Toast.LENGTH_SHORT).show();
@@ -166,6 +201,7 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
             break;
         }
     }
+
     //提交订单方法
     private void setTotlaPay(FormEntity form,boolean boo) {
         form.setIsWind("2"); //是否使用风豆 使用 1；不使用2
@@ -202,37 +238,7 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
         isBuyDialog.setContentView(view);
         isBuyDialog.show();
     }
-    //交易成功弹出框
-    private void buySuccessDialog() {
-        Activity activity = ShopCarMakeFormActivity.this;
-        while (activity.getParent() != null) {
-            activity = activity.getParent();
-        }
-        Toast.makeText(activity, "订单已生成，请及时完成付款!", Toast.LENGTH_SHORT).show();
-//        View view = null;
-//        view = LayoutInflater.from(ShopCarMakeFormActivity.this).inflate(R.layout.buy_success_layout, null);
-//        view.findViewById(R.id.btnSure).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                buySuccessDialog.dismiss();
-//            }
-//        });
-//        view.findViewById(R.id.btnQuit).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//            	Intent intent = new Intent(ShopCarMakeFormActivity.this,FormListActivity.class);
-//        		intent.putExtra("orderType", 1);
-//        		intent.putExtra("getway", currentTag);  //自行取货 1 ；快递：2
-//                intent.putExtra("kind", 0); //0:未付款 1：未发货/未提货 2：全部订单
-//                ShopCarMakeFormActivity.this.startActivity(intent);
-//                buySuccessDialog.dismiss();
-//            }
-//        });
-//        buySuccessDialog = new Dialog(activity, R.style.planDialog);
-//        buySuccessDialog.setCancelable(true);
-//        buySuccessDialog.setContentView(view);
-//        buySuccessDialog.show();
-    }
+
     private void putForm(){
         memberId = MainApplication.getInstance().getMember().getId();
         FormEntity form = new FormEntity();
@@ -242,9 +248,9 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
         form.setOrderType("1");  //1是商品
         form.setIsMoney("2");	//是否使用现金  使用 1；不使用2
         form.setStoreId(storeId);//购买门店Id
-        OrderProductEntity[] orderProducts = new OrderProductEntity[entity.length];
-        for(int i=0;i<entity.length;++i){
-        	OrderProductEntity product = entity[i].getOrderProduct();
+        OrderProductEntity[] orderProducts = new OrderProductEntity[carEntity.length];
+        for(int i=0;i<carEntity.length;++i){
+        	OrderProductEntity product = carEntity[i].getOrderProduct();
         	orderProducts[i] = new OrderProductEntity();
         	orderProducts[i].setPrice(product.getPrice());
         	orderProducts[i].setNum(product.getNum());
@@ -287,7 +293,7 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
        //选择收货地址返回
-        if(requestCode==1){
+        if(requestCode == 1){
             if(data != null && data.getExtras() != null){
             	address = (CustomerAddressEntity) data.getExtras().getSerializable("address");
                 if(address != null){
@@ -320,10 +326,6 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        if(imageLoader!=null){
-//            imageLoader.clearMemory();
-//            imageLoader=null;
-//        }
     }
 
 }
