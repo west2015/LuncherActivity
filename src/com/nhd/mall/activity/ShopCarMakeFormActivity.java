@@ -94,7 +94,6 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
         		this.currentTag = product.getGetway();
         	}
         }
-//        Toast.makeText(this, "currentTag = " + currentTag, Toast.LENGTH_SHORT).show();
         storeName = " ";
         if(MainApplication.getInstance().getStores() != null){
         	StoreEntity[] stores = MainApplication.getInstance().getStores();
@@ -209,29 +208,30 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
         while (activity.getParent() != null) {
             activity = activity.getParent();
         }
-        View view = null;
-        view = LayoutInflater.from(ShopCarMakeFormActivity.this).inflate(R.layout.buy_success_layout, null);
-        view.findViewById(R.id.btnSure).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                buySuccessDialog.dismiss();
-            }
-        });
-        view.findViewById(R.id.btnQuit).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            	Intent intent = new Intent(ShopCarMakeFormActivity.this,FormListActivity.class);
-        		intent.putExtra("orderType", 1);
-        		intent.putExtra("getway", currentTag);  //自行取货 1 ；快递：2
-                intent.putExtra("kind", 0); //0:未付款 1：未发货/未提货 2：全部订单
-                ShopCarMakeFormActivity.this.startActivity(intent);
-                buySuccessDialog.dismiss();
-            }
-        });
-        buySuccessDialog = new Dialog(activity, R.style.planDialog);
-        buySuccessDialog.setCancelable(true);
-        buySuccessDialog.setContentView(view);
-        buySuccessDialog.show();
+        Toast.makeText(activity, "订单已生成，请及时完成付款!", Toast.LENGTH_SHORT).show();
+//        View view = null;
+//        view = LayoutInflater.from(ShopCarMakeFormActivity.this).inflate(R.layout.buy_success_layout, null);
+//        view.findViewById(R.id.btnSure).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                buySuccessDialog.dismiss();
+//            }
+//        });
+//        view.findViewById(R.id.btnQuit).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//            	Intent intent = new Intent(ShopCarMakeFormActivity.this,FormListActivity.class);
+//        		intent.putExtra("orderType", 1);
+//        		intent.putExtra("getway", currentTag);  //自行取货 1 ；快递：2
+//                intent.putExtra("kind", 0); //0:未付款 1：未发货/未提货 2：全部订单
+//                ShopCarMakeFormActivity.this.startActivity(intent);
+//                buySuccessDialog.dismiss();
+//            }
+//        });
+//        buySuccessDialog = new Dialog(activity, R.style.planDialog);
+//        buySuccessDialog.setCancelable(true);
+//        buySuccessDialog.setContentView(view);
+//        buySuccessDialog.show();
     }
     private void putForm(){
         memberId = MainApplication.getInstance().getMember().getId();

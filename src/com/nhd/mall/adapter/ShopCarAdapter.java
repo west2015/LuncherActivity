@@ -7,6 +7,7 @@ import java.util.List;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,8 +45,9 @@ public class ShopCarAdapter  extends BaseAdapter {
     //用一个map来保存所有订单的总价格
     private HashMap<Integer,Double>priveMap = new HashMap<Integer, Double>();
     public ImageLoader imageLoader;
-    private boolean[] isTop;
+    private int[] groupNumber;
     private boolean[] isEdit;
+    private boolean[] isAllSelected;
     private HashMap<Integer,String> storeName = new HashMap<Integer,String>();
     
     public ShopCarAdapter( Context context, CarEntity[] entity){
@@ -99,16 +101,20 @@ public class ShopCarAdapter  extends BaseAdapter {
         }
     }
     private void initGroup(CarEntity[] entity){
-        isTop = new boolean[entity.length+1];
-        isTop[0] = true;
-        isTop[entity.length] = true;
-        for(int i=1;i<entity.length;++i)
-        if(entity[i].getOrderProduct().getStoreId() != entity[i-1].getOrderProduct().getStoreId()
-        || entity[i].getOrderProduct().getGetway() != entity[i-1].getOrderProduct().getGetway()){
-        	isTop[i] = true;
+    	int mGroup = 0;
+    	groupNumber = new int[entity.length+1];
+    	groupNumber[0] = 0;
+    	groupNumber[entity.length] = entity.length;
+        for(int i=1;i<entity.length;++i){
+	        if(entity[i].getOrderProduct().getStoreId() != entity[i-1].getOrderProduct().getStoreId()
+	        || entity[i].getOrderProduct().getGetway() != entity[i-1].getOrderProduct().getGetway()){
+	        	mGroup = i;
+	        }
+	        groupNumber[i] = mGroup;
         }
-        else{
-        	isTop[i] = false;
+        isAllSelected = new boolean[entity.length];
+        for(int i=0;i<entity.length;++i){
+        	isAllSelected[i] = false;
         }
         isEdit = new boolean[entity.length+1];
         for(int i=0;i<isEdit.length;++i){
@@ -182,19 +188,14 @@ public class ShopCarAdapter  extends BaseAdapter {
         holder.tvPrice.setText(orderProduct.getPrice()==null?"￥0":"￥"+String.valueOf(orderProduct.getPrice()));
         holder.tvNumber.setText(orderProduct.getNum()==null?0+"":"×"+orderProduct.getNum());
         holder.tvCount.setText(orderProduct.getNum()==null?0+"":orderProduct.getNum()+"");
-        if(!isTop[position]) {
-        	if(holder.rlTop != null) {
-        		holder.rlTop.setVisibility(View.GONE);
-        	}
+
+        if(groupNumber[position] != position) {
+        	holder.rlTop.setVisibility(View.GONE);
         }
         else { // 分组开头
-        	if(holder.rlTop != null){
-        		holder.rlTop.setVisibility(View.VISIBLE);
-        	}
-        	if(holder.tvStore != null){
-        		if(storeName.get(orderProduct.getStoreId()) != null){
-        			holder.tvStore.setText(storeName.get(orderProduct.getStoreId()));
-        		}
+        	holder.rlTop.setVisibility(View.VISIBLE);
+        	if(storeName.get(orderProduct.getStoreId()) != null){
+        		holder.tvStore.setText(storeName.get(orderProduct.getStoreId()));
         	}
         	if(orderProduct.getGetway() == DELIVERY){
         		holder.tvWay.setText("配送方式：快递");
@@ -209,9 +210,7 @@ public class ShopCarAdapter  extends BaseAdapter {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						boolean status = !isEdit[position];
-						isEdit[position] = status;
-						for(int i=position+1;i<isEdit.length;++i){
-							if(isTop[i]) break;
+						for(int i=position;groupNumber[i]==groupNumber[position];++i){
 							isEdit[i] = status;
 						}
 						notifyDataSetChanged();
@@ -219,40 +218,42 @@ public class ShopCarAdapter  extends BaseAdapter {
 				});
         	}
         	if(holder.cb_all != null){
+        		// 判断是否全选
+        		if(holder.cb_all.isChecked() != isAllSelected[position]){
+        			holder.cb_all.setChecked(isAllSelected[position]);
+        			notifyDataSetChanged();
+        		}
+        		// setListener
         		holder.cb_all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 					@Override
 					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 						// TODO Auto-generated method stub
-						checkBoxesStatus.set(position, isChecked);
-						for(int i=position+1;i<isTop.length;++i){
-							if(isTop[i]) break;
-							checkBoxesStatus.set(i, isChecked);
+						if(isChecked || (!isChecked && isAllSelected[position])){
+							isAllSelected[position] = isChecked;
+							for(int i=position;groupNumber[i]==groupNumber[position];++i){
+								checkBoxesStatus.set(i, isChecked);
+							}
+							notifyDataSetChanged();
 						}
-						notifyDataSetChanged();
 					}
 				});
         	}
         }
-        if(!isTop[position+1] || isEdit[position]) {
-        	if(holder.rlTotal != null){
-        		holder.rlTotal.setVisibility(View.GONE);
-        	}
+        if(groupNumber[position+1]!=position+1 || isEdit[position]) {
+        	holder.rlTotal.setVisibility(View.GONE);
         }
         else{ // 分组结尾
-        	if(holder.rlTotal != null){
-        		holder.rlTotal.setVisibility(View.VISIBLE);
-        	}
+        	holder.rlTotal.setVisibility(View.VISIBLE);
         	// 计算商品总数目、总价
         	int totalNumber = 0;
         	double totalPrice = 0;
         	double totalFreight = 0;
-        	for(int i=position;i>=0;--i){
+        	for(int i=position;i>=0 && groupNumber[i]==groupNumber[position];--i){
         		if(checkBoxesStatus.get(i)){
         			totalNumber += entity[i].getOrderProduct().getNum();
         			totalPrice += entity[i].getOrderProduct().getNum()*Double.parseDouble(entity[i].getOrderProduct().getPrice()+"");
         			totalFreight += entity[i].getOrderProduct().getFreight();
         		}
-        		if(isTop[i]) break;
         	}
         	if(entity[position].getOrderProduct().getGetway() == DELIVERY){
         		totalPrice += totalFreight;
@@ -272,11 +273,10 @@ public class ShopCarAdapter  extends BaseAdapter {
 						// TODO Auto-generated method stub
 						if(isEdit[position] || number==0) return ;
 						List<CarEntity> listEntity = new ArrayList<CarEntity>();
-						for(int i=position;i>=0;--i){
+						for(int i=position;i>=0 && groupNumber[i]==groupNumber[position];--i){
 							if(checkBoxesStatus.get(i)){
 								listEntity.add(entity[i]);
 							}
-							if(isTop[i]) break;
 						}
 						CarEntity[] mEntity = new CarEntity[listEntity.size()];
 						mEntity = listEntity.toArray(mEntity);
@@ -291,38 +291,18 @@ public class ShopCarAdapter  extends BaseAdapter {
         }
         // 编辑中
         if(isEdit[position]){
-        	if(holder.btnEdit != null){
-        		holder.btnEdit.setText("完成");
-        	}
-        	if(holder.rl_number != null){
-        		holder.rl_number.setVisibility(View.VISIBLE);
-        	}
-        	if(holder.tvNumber != null){
-        		holder.tvNumber.setVisibility(View.GONE);
-        	}
-        	if(holder.btnCheckOut != null){
-        		holder.btnCheckOut.setBackground(context.getResources().getDrawable(R.drawable.btn_unpressed_bg));
-        	}
-        	if(holder.tvPrice != null){
-        		holder.tvPrice.setVisibility(View.GONE);
-        	}
+        	holder.btnEdit.setText("完成");
+        	holder.rl_number.setVisibility(View.VISIBLE);
+        	holder.tvNumber.setVisibility(View.GONE);
+        	holder.btnCheckOut.setBackground(context.getResources().getDrawable(R.drawable.btn_unpressed_bg));
+        	holder.tvPrice.setVisibility(View.GONE);
         }
         else{
-        	if(holder.btnEdit != null){
-        		holder.btnEdit.setText("编辑");
-        	}
-        	if(holder.rl_number != null){
-        		holder.rl_number.setVisibility(View.GONE);
-        	}
-        	if(holder.tvNumber != null){
-        		holder.tvNumber.setVisibility(View.VISIBLE);
-        	}
-        	if(holder.btnCheckOut != null){
-        		holder.btnCheckOut.setBackground(context.getResources().getDrawable(R.drawable.my_form_btn_bg));
-        	}
-        	if(holder.tvPrice != null){
-        		holder.tvPrice.setVisibility(View.VISIBLE);
-        	}
+        	holder.btnEdit.setText("编辑");
+        	holder.rl_number.setVisibility(View.GONE);
+        	holder.tvNumber.setVisibility(View.VISIBLE);
+        	holder.btnCheckOut.setBackground(context.getResources().getDrawable(R.drawable.my_form_btn_bg));
+        	holder.tvPrice.setVisibility(View.VISIBLE);
         }
         final boolean checkBoxStatus = checkBoxesStatus.get(position);
         holder.cb.setTag(position);
@@ -331,28 +311,21 @@ public class ShopCarAdapter  extends BaseAdapter {
         holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                checkBoxesStatus.set((Integer)buttonView.getTag(), isChecked);
-                notifyDataSetChanged();
-                if(isChecked){
-                    boolean b = false;
-                    if(selectMap.size()==entity.length){
-                        b = true;
-                    }
-                    selectMap.put(position,true);
-                    if(b) return;
-                    if(listenerPrice != null){
-                    	listenerPrice.getCheckPrice(position,isChecked);
-                    }
-                }
-                else{
-                    if(selectMap.containsKey(position)){
-                        selectMap.remove(position);
-                        if(listenerPrice!=null){
-                        	listenerPrice.getCheckPrice(position,isChecked);
-                        }
-                    }
-                }
-
+            	checkBoxesStatus.set(position, isChecked);
+            	if(isChecked){
+            		int startPosition = groupNumber[position];
+            		isAllSelected[startPosition] = true;
+            		for(int i=startPosition;groupNumber[i]==startPosition;++i){
+            			if(!checkBoxesStatus.get(i)){
+            				isAllSelected[startPosition] = false;
+            				break;
+            			}
+            		}
+            	}
+            	else{
+    				isAllSelected[groupNumber[position]] = false;            		
+            	}
+            	notifyDataSetChanged();
             }
         });
 
@@ -365,12 +338,21 @@ public class ShopCarAdapter  extends BaseAdapter {
 	            public void onClick(View view) {
 	                OrderProductEntity order = entity[position].getOrderProduct();
 	                int currentCount =  Integer.parseInt(etCount.getText().toString());
-	                if(currentCount>=order.getBuyLimit()){
-	                    Toast.makeText(context,"不能超过限购量",Toast.LENGTH_SHORT).show();
-	                    return;
+	                if(order.getBuyLimit()!=0 && currentCount>=order.getBuyLimit()){
+	                    
+	                	Toast toast = Toast.makeText(context,"每个用户限购"+order.getBuyLimit()+"件哦!",Toast.LENGTH_SHORT);
+	                    toast.getView().getBackground().setAlpha(90);
+	                    toast.setGravity(Gravity.CENTER, 0, 0);
+	                    toast.show();
+
+	                	
+	                	return;
 	                }
 	                if(currentCount>=order.getTotal()){
-	                    Toast.makeText(context,"库存不够",Toast.LENGTH_SHORT).show();
+	                	Toast toast = Toast.makeText(context,"库存不够",Toast.LENGTH_SHORT);
+	                    toast.getView().getBackground().setAlpha(90);
+	                    toast.setGravity(Gravity.CENTER, 0, 0);
+	                    toast.show();
 	                    return;
 	                }
 	                etCount.setText(String.valueOf(Integer.parseInt(etCount.getText().toString())+1));
@@ -378,16 +360,18 @@ public class ShopCarAdapter  extends BaseAdapter {
 	                //相应的改变实体类里面的参数
 	                order.setNum(count);
 	                entity[position].setOrderProduct(order);
-	                if(listenerPrice!=null){
-	                	listenerPrice.getAllPrice(position,count,order.getPrice(),entity[position].getOrderProduct(),cb.isChecked(),1);
-	                }
 	            }
 	        });
 	        //减少数量监听
 	        holder.btnMinus.setOnClickListener(new View.OnClickListener() {
 	            @Override
 	            public void onClick(View view) {
-	                if(etCount.getText().toString().equals("0")){
+	                if(etCount.getText().toString().equals("1")){
+	                	Toast toast = Toast.makeText(context, "商品数量必须大于0！", Toast.LENGTH_SHORT);
+	                    toast.getView().getBackground().setAlpha(90);
+	                    toast.setGravity(Gravity.CENTER, 0, 0);
+	                    toast.show();
+
 	                    return;
 	                }
 	                etCount.setText(String.valueOf(Integer.parseInt(etCount.getText().toString())-1));
@@ -396,9 +380,6 @@ public class ShopCarAdapter  extends BaseAdapter {
 	                //相应的改变实体类里面的参数
 	                order.setNum(count);
 	                entity[position].setOrderProduct(order);
-	                if(listenerPrice!=null){
-	                	listenerPrice.getAllPrice(position,count,order.getPrice(),entity[position].getOrderProduct(),cb.isChecked(),2);
-	                }
 	            }
 	        });
         }
@@ -422,8 +403,6 @@ public class ShopCarAdapter  extends BaseAdapter {
         private ImageButton btnCheckOut;
     }
     public interface checkAllPrice{
-        void getAllPrice(int position,int count,double price,OrderProductEntity order,boolean boo,int sort);
-        void getCheckPrice(int position,boolean boo);
         void submitForm(int storeId,CarList carList);
     }
 }

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -140,12 +141,19 @@ public class GoodsDetailActivity extends ModelActivity implements OnAsyncTaskDat
                 if(productDetailEntity==null)return;
                 if(productDetailEntity.getBuyLimit()!=null&&productDetailEntity.getBuyLimit()>0){
                     if(buyCount>=productDetailEntity.getBuyLimit()){
-                        Toast.makeText(GoodsDetailActivity.this,"不能超过限购量",Toast.LENGTH_SHORT).show();
+                    	
+                    	Toast toast =  Toast.makeText(GoodsDetailActivity.this,"每个用户限购"+productDetailEntity.getBuyLimit()+"件哦！",Toast.LENGTH_SHORT);
+                        toast.getView().getBackground().setAlpha(90);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
                         return;
                     }
                 }
                 if(buyCount>=total){
-                    Toast.makeText(GoodsDetailActivity.this,"库存量不够.",Toast.LENGTH_SHORT).show();
+                	Toast toast =  Toast.makeText(GoodsDetailActivity.this,"库存量不够.",Toast.LENGTH_SHORT);
+                    toast.getView().getBackground().setAlpha(90);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                     return;
                 }
                 else{
@@ -354,7 +362,10 @@ public class GoodsDetailActivity extends ModelActivity implements OnAsyncTaskDat
         while (activity.getParent() != null) {
             activity = activity.getParent();
         }
-        Toast.makeText(activity, "已添加到购物车!", Toast.LENGTH_SHORT).show();
+        Toast toast = Toast.makeText(activity, "已添加到购物车!", Toast.LENGTH_SHORT);
+        toast.getView().getBackground().setAlpha(90);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
 //        View view = null;
 //        view = LayoutInflater.from(GoodsDetailActivity.this).inflate(R.layout.add_into_car_success_layout, null);
 //        view.findViewById(R.id.btnSure).setOnClickListener(new View.OnClickListener() {

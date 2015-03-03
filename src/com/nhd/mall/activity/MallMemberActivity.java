@@ -161,12 +161,20 @@ public class MallMemberActivity extends FragmentActivity implements
 			break;
 		// 配送商品，自提商品，卡劵订单的菜单
 		case R.id.rl_myForm_1:
+			if(MainApplication.getInstance().getMember()==null){
+				new startIntent(MallMemberActivity.this, LoginActivity.class);
+				break;
+			}
 			Intent i1 = new Intent(MallMemberActivity.this, FormSendActivity.class);
 			i1.putExtra("orderType", 1);
 			i1.putExtra("getway", 2); //自行取货 1 ；快递：2
 			startActivity(i1);
 			break;
 		case R.id.rl_myForm_2:
+			if(MainApplication.getInstance().getMember()==null){
+				new startIntent(MallMemberActivity.this, LoginActivity.class);
+				break;
+			}
 			// 自提商品
 			Intent i2 = new Intent(MallMemberActivity.this, FormTakeActivity.class);
 			i2.putExtra("orderType", 1);
@@ -175,6 +183,10 @@ public class MallMemberActivity extends FragmentActivity implements
 //			new startIntent(MallMemberActivity.this, FormTakeActivity.class);
 			break;
 		case R.id.rl_myForm_3:
+			if(MainApplication.getInstance().getMember()==null){
+				new startIntent(MallMemberActivity.this, LoginActivity.class);
+				break;
+			}
 			// 卡劵订单
 			new startIntent(MallMemberActivity.this, MyFormActivity.class);
 			break;
@@ -182,24 +194,44 @@ public class MallMemberActivity extends FragmentActivity implements
 			new startIntent(MallMemberActivity.this, MyBeanActivity.class);
 			break;
 		case R.id.rl_myQuan:
+			if(MainApplication.getInstance().getMember()==null){
+				new startIntent(MallMemberActivity.this, LoginActivity.class);
+				break;
+			}
 			Bundle bundle1 = new Bundle();
 			bundle1.putInt("sort", 4);
 			new startIntent(MallMemberActivity.this, MyCouponActivity.class,
 					bundle1);
 			break;
 		case R.id.rl_myCard:
+			if(MainApplication.getInstance().getMember()==null){
+				new startIntent(MallMemberActivity.this, LoginActivity.class);
+				break;
+			}
 			Bundle bundle2 = new Bundle();
 			bundle2.putInt("sort", 3);
 			new startIntent(MallMemberActivity.this, MyCouponActivity.class,
 					bundle2);
 			break;
 		case R.id.rl_myMessage:
+			if(MainApplication.getInstance().getMember()==null){
+				new startIntent(MallMemberActivity.this, LoginActivity.class);
+				break;
+			}
 			new startIntent(MallMemberActivity.this, MyMessageActivity.class);
 			break;
 		case R.id.rl_myCollect:
+			if(MainApplication.getInstance().getMember()==null){
+				new startIntent(MallMemberActivity.this, LoginActivity.class);
+				break;
+			}
 			new startIntent(MallMemberActivity.this, MyCollectionActivity.class);
 			break;
 		case R.id.rl_myAddress:
+			if(MainApplication.getInstance().getMember()==null){
+				new startIntent(MallMemberActivity.this, LoginActivity.class);
+				break;
+			}
 			new startIntent(MallMemberActivity.this,
 					SelectCustomerAddress.class);
 			break;
