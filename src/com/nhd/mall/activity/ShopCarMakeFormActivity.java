@@ -112,8 +112,11 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
         }
         sca = new ShopCarMakeFormAdapter(this,storeName,carEntity);
         listView.setAdapter(sca);
-        adlg = new AddressListGet(this,memberId);
-        adlg.setListener(this);
+        if(MainApplication.getInstance().getMember() != null){
+        	Member mMember = MainApplication.getInstance().getMember();
+	        adlg = new AddressListGet(this,mMember.getId());
+	        adlg.setListener(this);
+        }
         initCustomerAddress();
     }
 
@@ -122,7 +125,6 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
     	new DbAddress(getApplicationContext()).delete();
         if(MainApplication.getInstance().getCustomerAddress() == null){
         	if(addressEntity == null || addressEntity.length <=0){
-        		Toast.makeText(this, "addressEntity is not null!", Toast.LENGTH_SHORT).show();
         		address = null;
 	            tvName.setText("");
 	            tvPhone.setText("");
@@ -130,13 +132,9 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
 	        	tvNoAddress.setText("您还没有收货地址，去添加地址吧!");
         	}
         	else{
-        		Toast.makeText(this, "addressEntity is null!", Toast.LENGTH_SHORT).show();
         		address = addressEntity[0];
         		new DbAddress(getApplicationContext()).update(address);
         	}
-        }
-        else{
-    		Toast.makeText(this, "getCustomerAddress!", Toast.LENGTH_SHORT).show();
         }
         address = MainApplication.getInstance().getCustomerAddress();
         if(address != null){
@@ -186,11 +184,12 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
             Intent intent = new Intent();
             if(address != null){
 	            intent.setClass(ShopCarMakeFormActivity.this,MakeFormSelectAddressActivity.class);
+	            startActivityForResult(intent,1);
             }
             else{
 	            intent.setClass(ShopCarMakeFormActivity.this,AddAddressActivity.class);
+	            startActivityForResult(intent,2);
             }
-            startActivityForResult(intent,1);
             break;
         case R.id.btn_send:
             if(address==null){
@@ -304,6 +303,12 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
                     tvNoAddress.setText("");
                 }
             }
+        } else
+        if(requestCode == 2){
+        	if(data != null && data.getExtras() != null){
+        		address = (CustomerAddressEntity) data.getExtras().getSerializable("address");
+        		adlg.update(memberId);
+        	}
         }
     }
 

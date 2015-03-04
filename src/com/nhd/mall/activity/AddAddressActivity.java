@@ -48,9 +48,6 @@ public class AddAddressActivity extends ModelActivity implements View.OnClickLis
     private EditText etName,etPhone,etAddress,etZipCode;
     private TextView tvArea;
     private Long memberId=0L;
-    private AddressListGet adlg = null;
-    private CustomerAddressEntityList addressList = null;
-    private CustomerAddressEntity[] addressEntity = null;
     private RegionEntity[] provinceEntity;  //存放省份的类集合
     private RegionEntity[] cityEntity;//存放城市的类集合
     private RegionEntity[] areaEntity;//存放区域的类集合
@@ -81,6 +78,7 @@ public class AddAddressActivity extends ModelActivity implements View.OnClickLis
         setTitle("添加收货地址");
         find();
     }
+
     private void find() {
         findViewById(R.id.btnSure).setOnClickListener(this);
         etName = (EditText)findViewById(R.id.etName);
@@ -96,53 +94,35 @@ public class AddAddressActivity extends ModelActivity implements View.OnClickLis
         selectCity();
         selectArea();
     }
-    
+
     private void getExtras(){
     }
-    
+
     @Override
     public void getData(Object obj, String message) {
         if (message != null)
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         if (obj == null)
             return;
-        if(obj instanceof CustomerAddressEntityList){
-            addressList = (CustomerAddressEntityList) obj;
-            addressEntity = addressList.getAddress();
-            if(addressEntity != null && addressEntity.length <= 0){
-                Toast.makeText(AddAddressActivity.this,"添加成功",Toast.LENGTH_SHORT).show();
-                for(int i=0;i<addressEntity.length;++i){
-                	CustomerAddressEntity mEntity = addressEntity[i];
-                	if(	mEntity.getAddress().equals(customer.getAddress()) && 
-                    	mEntity.getName().equals(customer.getName()) &&
-                		mEntity.getMobile().equals(customer.getMobile()) &&
-                		mEntity.getMemberId().equals(customer.getMemberId()) &&
-                		mEntity.getZipcode().equals(customer.getZipcode()) &&
-                		mEntity.getArea().equals(customer.getArea()) ){
-                		address = mEntity;
-                		break;
-                	}
-                }
-            	Intent intent = new Intent();
-                intent.setClass(AddAddressActivity.this,ShopCarMakeFormActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("address",address);
-                intent.putExtras(bundle);
-                setResult(1,intent);
-                finish();
-            }
-            else{
-                Toast.makeText(AddAddressActivity.this,"添加失败",Toast.LENGTH_SHORT).show();
-            }
-            return;
-        }
         HashMap<String,String>map = (HashMap<String, String>) obj;
         if(map.get("success").equals("true")){
-            adlg = new AddressListGet(this,memberId);
-            adlg.setListener(this);
+        	address = new CustomerAddressEntity();
+            address.setAddress(customer.getAddress());
+            address.setName(customer.getName());
+            address.setMobile(customer.getMobile());
+            address.setMemberId(customer.getMemberId());
+            address.setZipcode(customer.getZipcode());
+            address.setArea(customer.getArea());
+        	Intent intent = new Intent();
+            intent.setClass(AddAddressActivity.this,ShopCarMakeFormActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("address",address);
+            intent.putExtras(bundle);
+            setResult(2,intent);
+            finish();
         }
         else{
-            Toast.makeText(AddAddressActivity.this,"添加失败",Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddAddressActivity.this,"添加失败1",Toast.LENGTH_SHORT).show();
         }
     }
     @Override
@@ -172,6 +152,7 @@ public class AddAddressActivity extends ModelActivity implements View.OnClickLis
             }
         }
     }
+
     @Override
     public void onClick(View view) {
         switch(view.getId()){

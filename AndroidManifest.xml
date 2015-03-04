@@ -180,6 +180,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/NoTitle" />
         <activity
+            android:name="com.nhd.mall.activity.MakeFormSelectAddressActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitle" />
+        <activity
             android:name="com.nhd.mall.activity.ModifyAdressActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoTitle" />

@@ -40,7 +40,7 @@ public class MainApplication extends FrontiaApplication {
 	private static Context mContext;
 	private static MainApplication instance;
 	private Member member;
-    private CustomerAddressEntity customerAddress;
+    private CustomerAddressEntity customerAddress = null;
     //购物车中选中的要生成订单的商品保存在这里
     private ArrayList<OrderProductEntity>order = new ArrayList<OrderProductEntity>();
     private String verName;   //当前版本名称
@@ -252,18 +252,11 @@ public class MainApplication extends FrontiaApplication {
     }
 
     public CustomerAddressEntity getCustomerAddress() {
-    	if(customerAddress != null){
-    		Log.e("123", customerAddress.getName());
-    		Toast.makeText(mContext, customerAddress.getName(), Toast.LENGTH_SHORT).show();
-    	}
-    	else{
-    		Log.e("123", "customerAddress is null");
-    		Toast.makeText(mContext, "customerAddress is null", Toast.LENGTH_SHORT).show();
-    	}
         return customerAddress;
     }
 
     public void setCustomerAddress(CustomerAddressEntity customerAddress) {
         this.customerAddress = customerAddress;
     }
+
 }
