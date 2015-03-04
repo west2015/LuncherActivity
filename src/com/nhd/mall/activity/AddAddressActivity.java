@@ -90,13 +90,6 @@ public class AddAddressActivity extends ModelActivity implements View.OnClickLis
         etAddress = (EditText)findViewById(R.id.etAdress);
         etZipCode = (EditText)findViewById(R.id.etZipCode);
         tvArea = (TextView)findViewById(R.id.tvArea);
-        
-        // 测试
-        etName.setText("MrChen");
-        etPhone.setText("11111");
-        etAddress.setText("胡建");
-        etZipCode.setText("123");
-        
         tvArea.setOnClickListener(this);
 
         getExtras();
