@@ -46,7 +46,6 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
     private int storeId;
     private Integer currentTag;
     // 与收货信息有关的
-
     private AddressListGet adlg = null;
     private CustomerAddressEntityList addressList = null;
     private CustomerAddressEntity[] addressEntity = null;
@@ -112,36 +111,45 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
         }
         sca = new ShopCarMakeFormAdapter(this,storeName,carEntity);
         listView.setAdapter(sca);
+        // 获取接口数据
         if(MainApplication.getInstance().getMember() != null){
         	Member mMember = MainApplication.getInstance().getMember();
-	        adlg = new AddressListGet(this,mMember.getId());
+        	adlg = new AddressListGet(this,mMember.getId());
 	        adlg.setListener(this);
         }
-        initCustomerAddress();
-    }
+        // 获取本地数据
+//        initCustomerAddress();
+	}
 
     // 初始化收货信息
-    private void initCustomerAddress() {
-    	new DbAddress(getApplicationContext()).delete();
-        if(MainApplication.getInstance().getCustomerAddress() == null){
-        	if(addressEntity == null || addressEntity.length <=0){
-        		address = null;
-	            tvName.setText("");
-	            tvPhone.setText("");
-	        	tvAddress.setText("");
-	        	tvNoAddress.setText("您还没有收货地址，去添加地址吧!");
-        	}
-        	else{
-        		address = addressEntity[0];
-        		new DbAddress(getApplicationContext()).update(address);
-        	}
-        }
-        address = MainApplication.getInstance().getCustomerAddress();
+    private void initCustomerAddress(CustomerAddressEntity address) {
+    	this.address = address;
+    	new DbAddress(getApplicationContext()).update(address);
         if(address != null){
             tvName.setText("收货人： " + address.getName());
             tvPhone.setText(address.getMobile());
             tvAddress.setText("地址：" + address.getAddress());
             tvNoAddress.setText("");
+        }
+        else{
+    		tvName.setText("");
+            tvPhone.setText("");
+        	tvAddress.setText("");
+        	tvNoAddress.setText("您还没有收货地址，去添加地址吧!");
+        }
+    }
+    
+    private void initCustomerAddress() {
+        if(MainApplication.getInstance().getCustomerAddress() == null){
+        	if(addressEntity == null || addressEntity.length <=0){
+        		initCustomerAddress(null);
+        	}
+        	else{
+        		initCustomerAddress(addressEntity[0]);
+        	}
+        }
+        else{
+    		initCustomerAddress(MainApplication.getInstance().getCustomerAddress());
         }
     }
 
@@ -187,6 +195,9 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
 	            startActivityForResult(intent,1);
             }
             else{
+	            Bundle bundle = new Bundle();
+	            bundle.putString("sort", "makeform");
+	            intent.putExtras(bundle);
 	            intent.setClass(ShopCarMakeFormActivity.this,AddAddressActivity.class);
 	            startActivityForResult(intent,2);
             }
@@ -295,20 +306,23 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
         if(requestCode == 1){
             if(data != null && data.getExtras() != null){
             	address = (CustomerAddressEntity) data.getExtras().getSerializable("address");
-                if(address != null){
-                	new DbAddress(ShopCarMakeFormActivity.this).update(address);
-                    tvName.setText("收货人： " + address.getName());
-                    tvPhone.setText(address.getMobile());
-                    tvAddress.setText("地址：" + address.getAddress());
-                    tvNoAddress.setText("");
-                }
+            	initCustomerAddress(address);
             }
-        } else
+            else{
+                memberId = MainApplication.getInstance().getMember().getId();
+            	adlg.update(memberId);
+            }
+        }
+        else
         if(requestCode == 2){
         	if(data != null && data.getExtras() != null){
         		address = (CustomerAddressEntity) data.getExtras().getSerializable("address");
-        		adlg.update(memberId);
+            	initCustomerAddress(address);
         	}
+            else{
+                memberId = MainApplication.getInstance().getMember().getId();
+            	adlg.update(memberId);
+            }
         }
     }
 

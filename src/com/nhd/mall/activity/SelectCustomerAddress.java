@@ -44,7 +44,7 @@ public class SelectCustomerAddress extends ModelActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.customer_address_layout);
-        setTitle("选择收货地址");
+        setTitle("管理收货地址");
         find();
         register();
     }
@@ -54,7 +54,7 @@ public class SelectCustomerAddress extends ModelActivity implements View.OnClick
             @Override
             public void onClick(View view) {
             	Bundle bundle = new Bundle();
-            	if(entity == null || entity.length <=0){
+            	if(entity == null || entity.length <=0) {
             		bundle.putBoolean("default", true);
             	}
             	else{
@@ -91,18 +91,29 @@ public class SelectCustomerAddress extends ModelActivity implements View.OnClick
         HashMap<String,String> map = (HashMap<String, String>) obj;
         if(map.get("success").equals("true")){
             Toast.makeText(SelectCustomerAddress.this,"删除成功",Toast.LENGTH_SHORT).show();
-            ArrayList<CustomerAddressEntity>entityList = new ArrayList<CustomerAddressEntity>();
+
+            if(entity != null && entity.length>click){
+                Toast.makeText(SelectCustomerAddress.this, entity[click].getId() + "", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(SelectCustomerAddress.this, "entity is null or entity.length<=click", Toast.LENGTH_SHORT).show();            	
+            }
+
+            CustomerAddressEntity defaultAddress = MainApplication.getInstance().getCustomerAddress();
+            if(defaultAddress != null && entity[click].getId().equals(defaultAddress.getId())){ 
+            	new DbAddress(getApplicationContext()).update(null);
+            }
+
+            ArrayList<CustomerAddressEntity> entityList = new ArrayList<CustomerAddressEntity>();
             for(int i=0;i<entity.length;i++){
-                if(i!=click){
+                if(i != click){
                     entityList.add(entity[i]);
                 }
-                else{
-                	new DbAddress(getApplicationContext()).update(null);
-                }
             }
+
             CustomerAddressEntity[]ce = new CustomerAddressEntity[entity.length-1];
             entity = entityList.toArray(ce);
-            click =-1;
+            click = -1;
             caa.update(entity, click);
         }
     }
@@ -131,6 +142,7 @@ public class SelectCustomerAddress extends ModelActivity implements View.OnClick
                 break;
         }
     }
+
     public void onPause() {
         super.onPause();
         if(!AndroidServerFactory.PRODUCTION_MODEL){
@@ -152,9 +164,7 @@ public class SelectCustomerAddress extends ModelActivity implements View.OnClick
             else{
                 adlg.update(memberId);
             }
-
         }
-
     }
 
     @Override
@@ -164,20 +174,21 @@ public class SelectCustomerAddress extends ModelActivity implements View.OnClick
 
     @Override
     public void getClickPosition(int position) {
-      click = position;
-        if(sort!=null){
-        	Intent intent = new Intent();
-            intent.setClass(SelectCustomerAddress.this,MakeFormActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("address",entity[position]);
-            intent.putExtras(bundle);
-            setResult(1,intent);
-            new DbAddress(getApplicationContext()).update(entity[position]);
-            finish();
-        }
-        else{
-            caa.update(entity,click);
-        }
-
+    	click = position;
+        caa.update(entity,click);
+        
+//        if(sort != null){
+//        	Intent intent = new Intent();
+//            intent.setClass(SelectCustomerAddress.this,MakeFormActivity.class);
+//            Bundle bundle = new Bundle();
+//            bundle.putSerializable("address",entity[position]);
+//            intent.putExtras(bundle);
+//            setResult(1,intent);
+//            new DbAddress(getApplicationContext()).update(entity[position]);
+//            finish();
+//        }
+//        else{
+//            caa.update(entity,click);
+//        }
     }
 }

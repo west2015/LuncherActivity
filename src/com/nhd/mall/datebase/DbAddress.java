@@ -20,27 +20,30 @@ public class DbAddress {
     }
     
     public CustomerAddressEntity getAddress() {
-        SharedPreferences preferences = context.getSharedPreferences("ADDRESS", 0);
+        SharedPreferences preferences = context.getSharedPreferences("address", 0);
         CustomerAddressEntity address = null;
-        if (preferences.getString("address_name",null) != null) {
+        if (preferences.getString("name",null) != null) {
             address = new CustomerAddressEntity();
-            address.setId(preferences.getInt("address_id",0));
-            address.setName(preferences.getString("address_name", null));
-            address.setMobile(preferences.getString("address_mobile", null));
-            address.setAddress(preferences.getString("address_detail", null));
+            address.setId(preferences.getInt("id",0));
+            address.setName(preferences.getString("name", null));
+            address.setMobile(preferences.getString("mobile", null));
+            address.setAddress(preferences.getString("detail", null));
         }
         return address;
     }
 
     public void update(CustomerAddressEntity address) {
 		MainApplication.getInstance().setCustomerAddress(address);
-		if(address == null) return ;
-		SharedPreferences.Editor sharedata = context.getSharedPreferences("ADDRESS", 0).edit();
+		if(address == null){
+			delete();
+			return ;
+		}
+		SharedPreferences.Editor sharedata = context.getSharedPreferences("address", 0).edit();
 		sharedata.clear();
-        sharedata.putInt("address_id", address.getId());
-		sharedata.putString("address_name", address.getName());
-		sharedata.putString("address_mobile",address.getMobile());
-		sharedata.putString("address_detail", address.getAddress());
+        sharedata.putInt("id", address.getId());
+		sharedata.putString("name", address.getName());
+		sharedata.putString("mobile",address.getMobile());
+		sharedata.putString("detail", address.getAddress());
 		sharedata.commit();
     }
 

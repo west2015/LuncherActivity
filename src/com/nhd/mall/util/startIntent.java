@@ -17,9 +17,7 @@ public class startIntent {
 	}
 	
 	public startIntent(Context context,Class<?> cls,Bundle bundle) {
-		
 		intent = new Intent(context, cls);
-
 		if (bundle!=null)
 			intent.putExtras(bundle);
 		

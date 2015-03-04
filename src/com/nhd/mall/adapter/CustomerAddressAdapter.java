@@ -69,13 +69,6 @@ public class CustomerAddressAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder)convertView.getTag();
         }
-        // 判断是否为默认
-        if(customes.getId() == address.getId()){
-        	holder.tvDefault.setVisibility(View.VISIBLE);
-        }
-        else{
-        	holder.tvDefault.setVisibility(View.INVISIBLE);
-        }
 
         holder.tvAddress.setText(customes.getAddress()==null?"":customes.getAddress());
         holder.tvName.setText(customes.getName()==null?"":customes.getName());
@@ -87,12 +80,27 @@ public class CustomerAddressAdapter extends BaseAdapter {
         else{
             holder.rlAddress.setBackgroundResource(R.drawable.address_bg);
         }
+        
+        // 判断是否为默认
+        if(click == -1)
+        if(address != null && customes.getId().equals(address.getId())){
+            holder.rlAddress.setBackgroundResource(R.drawable.address_click_bg);
+        	holder.tvDefault.setVisibility(View.VISIBLE);
+            if(listener!=null){
+            	listener.getClickPosition(position);
+            }
+        }
+        else{
+            holder.rlAddress.setBackgroundResource(R.drawable.address_bg);
+        	holder.tvDefault.setVisibility(View.INVISIBLE);
+        }
+
         holder.rlAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             if(listener!=null){
-                 listener.getClickPosition(position);
-             }
+	             if(listener!=null){
+	                 listener.getClickPosition(position);
+	             }
             }
         });
         return convertView;

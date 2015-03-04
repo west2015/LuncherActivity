@@ -108,11 +108,8 @@ public class MakeFormSelectAddressActivity extends ModelActivity implements View
 
     @Override
     public void getClickPosition(int position) {
-    	Intent intent = new Intent();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("address",entity[position]);
-        intent.putExtras(bundle);
-        setResult(1,intent);
-        finish();
+    	click = position;
+        caa.update(entity,click);
     }
+
 }
