@@ -72,6 +72,7 @@ public class MallMemberActivity extends FragmentActivity implements
 	private final int CAMERA = 1;
 	private final int PICS = 2;
 	private final int CROP_PICS = 3;
+	private final int LOGIN=4;
 	private ImageLoader iLoader;
 	private File temp;
 	private String imageUri;
@@ -81,6 +82,9 @@ public class MallMemberActivity extends FragmentActivity implements
 	private RelativeLayout rlForm1, rlForm2, rlForm3;
 	// 我的订单二级菜单是否开启
 	private boolean isOpen = false;
+	
+	private int unLoginActive = 0;
+	
 
 	public Uri getImageUri() {
 		if (Environment.MEDIA_MOUNTED.equals(Environment
@@ -162,7 +166,10 @@ public class MallMemberActivity extends FragmentActivity implements
 		// 配送商品，自提商品，卡劵订单的菜单
 		case R.id.rl_myForm_1:
 			if(MainApplication.getInstance().getMember()==null){
-				new startIntent(MallMemberActivity.this, LoginActivity.class);
+				unLoginActive=1;
+				startActivityForResult(new Intent(MallMemberActivity.this, LoginActivity.class), LOGIN);
+//				new startIntent(MallMemberActivity.this, LoginActivity.class);
+				
 				break;
 			}
 			Intent i1 = new Intent(MallMemberActivity.this, FormSendActivity.class);
@@ -172,7 +179,8 @@ public class MallMemberActivity extends FragmentActivity implements
 			break;
 		case R.id.rl_myForm_2:
 			if(MainApplication.getInstance().getMember()==null){
-				new startIntent(MallMemberActivity.this, LoginActivity.class);
+				unLoginActive=2;
+				startActivityForResult(new Intent(MallMemberActivity.this, LoginActivity.class), LOGIN);
 				break;
 			}
 			// 自提商品
@@ -184,18 +192,28 @@ public class MallMemberActivity extends FragmentActivity implements
 			break;
 		case R.id.rl_myForm_3:
 			if(MainApplication.getInstance().getMember()==null){
-				new startIntent(MallMemberActivity.this, LoginActivity.class);
+				unLoginActive=3;
+				startActivityForResult(new Intent(MallMemberActivity.this, LoginActivity.class), LOGIN);
+//				new startIntent(MallMemberActivity.this, LoginActivity.class);
 				break;
 			}
 			// 卡劵订单
 			new startIntent(MallMemberActivity.this, MyFormActivity.class);
 			break;
 		case R.id.rl_myFengDou:
+			if(MainApplication.getInstance().getMember()==null){
+				unLoginActive=4;
+				startActivityForResult(new Intent(MallMemberActivity.this, LoginActivity.class), LOGIN);
+//				new startIntent(MallMemberActivity.this, LoginActivity.class);
+				break;
+			}
 			new startIntent(MallMemberActivity.this, MyBeanActivity.class);
 			break;
 		case R.id.rl_myQuan:
 			if(MainApplication.getInstance().getMember()==null){
-				new startIntent(MallMemberActivity.this, LoginActivity.class);
+				unLoginActive=5;
+				startActivityForResult(new Intent(MallMemberActivity.this, LoginActivity.class), LOGIN);
+
 				break;
 			}
 			Bundle bundle1 = new Bundle();
@@ -205,7 +223,9 @@ public class MallMemberActivity extends FragmentActivity implements
 			break;
 		case R.id.rl_myCard:
 			if(MainApplication.getInstance().getMember()==null){
-				new startIntent(MallMemberActivity.this, LoginActivity.class);
+				unLoginActive=6;
+				startActivityForResult(new Intent(MallMemberActivity.this, LoginActivity.class), LOGIN);
+
 				break;
 			}
 			Bundle bundle2 = new Bundle();
@@ -215,21 +235,24 @@ public class MallMemberActivity extends FragmentActivity implements
 			break;
 		case R.id.rl_myMessage:
 			if(MainApplication.getInstance().getMember()==null){
-				new startIntent(MallMemberActivity.this, LoginActivity.class);
+				unLoginActive=7;
+				startActivityForResult(new Intent(MallMemberActivity.this, LoginActivity.class), LOGIN);
 				break;
 			}
 			new startIntent(MallMemberActivity.this, MyMessageActivity.class);
 			break;
 		case R.id.rl_myCollect:
 			if(MainApplication.getInstance().getMember()==null){
-				new startIntent(MallMemberActivity.this, LoginActivity.class);
+				unLoginActive=8;
+				startActivityForResult(new Intent(MallMemberActivity.this, LoginActivity.class), LOGIN);
 				break;
 			}
 			new startIntent(MallMemberActivity.this, MyCollectionActivity.class);
 			break;
 		case R.id.rl_myAddress:
 			if(MainApplication.getInstance().getMember()==null){
-				new startIntent(MallMemberActivity.this, LoginActivity.class);
+				unLoginActive=9;
+				startActivityForResult(new Intent(MallMemberActivity.this, LoginActivity.class), LOGIN);
 				break;
 			}
 			new startIntent(MallMemberActivity.this,
@@ -379,6 +402,54 @@ public class MallMemberActivity extends FragmentActivity implements
 		case CROP_PICS:
 			upload(data);
 			break;
+			
+		case LOGIN:
+			switch(unLoginActive){
+			case 0:
+				break;
+			case 1:
+				Intent i1 = new Intent(MallMemberActivity.this, FormSendActivity.class);
+				i1.putExtra("orderType", 1);
+				i1.putExtra("getway", 2); //自行取货 1 ；快递：2
+				startActivity(i1);
+				break;
+			case 2:
+				// 自提商品
+				Intent i2 = new Intent(MallMemberActivity.this, FormTakeActivity.class);
+				i2.putExtra("orderType", 1);
+				i2.putExtra("getway", 1); //自行取货 1 ；快递：2
+				startActivity(i2);
+				break;
+			case 3:
+				new startIntent(MallMemberActivity.this, MyFormActivity.class);
+				break;
+			case 4:
+				new startIntent(MallMemberActivity.this, MyBeanActivity.class);
+				break;
+			case 5:
+				Bundle bundle1 = new Bundle();
+				bundle1.putInt("sort", 4);
+				new startIntent(MallMemberActivity.this, MyCouponActivity.class,
+						bundle1);
+				break;
+			case 6:
+				Bundle bundle2 = new Bundle();
+				bundle2.putInt("sort", 3);
+				new startIntent(MallMemberActivity.this, MyCouponActivity.class,
+						bundle2);
+				break;
+			case 7:
+				new startIntent(MallMemberActivity.this, MyMessageActivity.class);
+				break;
+			case 8:
+				new startIntent(MallMemberActivity.this, MyCollectionActivity.class);
+				break;
+			case 9:
+				new startIntent(MallMemberActivity.this,SelectCustomerAddress.class);
+				break;
+				
+			}
+			break;
 		}
 	}
 
@@ -474,4 +545,5 @@ public class MallMemberActivity extends FragmentActivity implements
 		}
 	}
 
+	
 }

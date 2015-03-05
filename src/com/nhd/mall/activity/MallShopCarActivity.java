@@ -91,6 +91,7 @@ public class MallShopCarActivity extends ModelActivity implements View.OnClickLi
             public void onClick(View view) {
                 if(sca==null)return;
                 if(sca.selectMap.size()<=0){
+                	Toast.makeText(MallShopCarActivity.this, "请选择要删除的商品", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 deleteDialog();
@@ -119,14 +120,9 @@ public class MallShopCarActivity extends ModelActivity implements View.OnClickLi
                 idList.add(car.getId());
             }
         }
-        if(idList.size() > 0){
-	        Integer[]ids = new Integer[idList.size()];
-	        ids = idList.toArray(ids);
-	        new DeleteCarGet(MallShopCarActivity.this,ids).setListener(MallShopCarActivity.this);
-        }
-        else{
-        	Toast.makeText(this, "请选择要删除的商品", Toast.LENGTH_SHORT).show();
-        }
+	    Integer[] ids = new Integer[idList.size()];
+	    ids = idList.toArray(ids);
+	    new DeleteCarGet(MallShopCarActivity.this,ids).setListener(MallShopCarActivity.this);
     }
 
     public void setFreightRule(boolean boo,double rule){

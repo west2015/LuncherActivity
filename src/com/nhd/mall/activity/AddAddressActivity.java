@@ -136,13 +136,6 @@ public class AddAddressActivity extends ModelActivity implements View.OnClickLis
                 Toast.makeText(AddAddressActivity.this,"添加成功",Toast.LENGTH_SHORT).show();
                 finish();
         	}
-//        	address = new CustomerAddressEntity();
-//            address.setAddress(customer.getAddress());
-//            address.setName(customer.getName());
-//            address.setMobile(customer.getMobile());
-//            address.setMemberId(customer.getMemberId());
-//            address.setZipcode(customer.getZipcode());
-//            address.setArea(customer.getArea());
         }
         else{
             Toast.makeText(AddAddressActivity.this,"添加失败",Toast.LENGTH_SHORT).show();

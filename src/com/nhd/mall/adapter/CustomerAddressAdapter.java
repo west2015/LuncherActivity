@@ -82,16 +82,10 @@ public class CustomerAddressAdapter extends BaseAdapter {
         }
         
         // 判断是否为默认
-        if(click == -1)
         if(address != null && customes.getId().equals(address.getId())){
-            holder.rlAddress.setBackgroundResource(R.drawable.address_click_bg);
         	holder.tvDefault.setVisibility(View.VISIBLE);
-            if(listener!=null){
-            	listener.getClickPosition(position);
-            }
         }
         else{
-            holder.rlAddress.setBackgroundResource(R.drawable.address_bg);
         	holder.tvDefault.setVisibility(View.INVISIBLE);
         }
 

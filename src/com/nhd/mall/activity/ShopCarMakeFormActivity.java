@@ -118,7 +118,7 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
 	        adlg.setListener(this);
         }
         // 获取本地数据
-//        initCustomerAddress();
+        initCustomerAddress();
 	}
 
     // 初始化收货信息
@@ -149,6 +149,14 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
         	}
         }
         else{
+        	if(addressEntity != null){
+        		CustomerAddressEntity address = MainApplication.getInstance().getCustomerAddress();
+        		for(int i=0;i<addressEntity.length;++i)
+        		if(addressEntity[i].getId().equals(address.getId())){
+            		initCustomerAddress(addressEntity[i]);
+            		return ;
+        		}
+        	}
     		initCustomerAddress(MainApplication.getInstance().getCustomerAddress());
         }
     }

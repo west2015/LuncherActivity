@@ -293,12 +293,14 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="12dp"
                 android:layout_marginLeft="12dp"
-                android:background="@drawable/good_detail_item_bg">
+                android:background="@drawable/good_detail_item_bg"
+                android:gravity="center_vertical">
 
                 <RelativeLayout
+                    android:id="@+id/rl_prive"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/good_detail_another">
+                    android:background="@drawable/good_detail_spxin">
 
                     <TextView
                         android:id="@+id/priveTitle"
@@ -312,44 +314,64 @@
                         android:textColor="@color/black"
                         />
                 </RelativeLayout>
-
-                <com.nhd.mall.widget.ParemiterView
-                    android:id="@+id/paremiterView"
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tv_prive"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="5dp"
-                    android:orientation="vertical"
-                   >
-                </com.nhd.mall.widget.ParemiterView>
+                    android:background="@drawable/good_detail_item_bg"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="12dp"
+                    android:paddingBottom="12dp"
+                    android:text="颜色:白色\n内存:16G"
+                    android:textSize="16sp"
+                    android:textColor="@color/txtunclick"/>
             </LinearLayout>
-            <TextView
-                android:id="@+id/goodsDetail"
+            
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:layout_margin="10dp"
-                android:singleLine="true"
-                android:textSize="16sp"
-                android:text="商品信息"
-                android:gravity="center_vertical"
-                android:background="@drawable/good_detail_spxin"
-                android:textColor="@color/black"
-                />
-            <TextView
-                android:id="@+id/goodsComment"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginLeft="12dp"
+                android:background="@drawable/good_detail_item_bg"
+                android:gravity="center_vertical">
+	            <TextView
+	                android:id="@+id/goodsDetail"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:paddingLeft="12dp"
+	                android:singleLine="true"
+	                android:textSize="16sp"
+	                android:text="商品信息"
+	                android:gravity="center_vertical"
+	                android:background="@drawable/good_detail_spxin"
+	                android:textColor="@color/black"/>
+            </LinearLayout>
+			<LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginLeft="12dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginRight="10dp"
-                android:singleLine="true"
-                android:textSize="16sp"
-                android:text="评价"
-                android:gravity="center_vertical"
-                android:background="@drawable/good_detail_spxin"
-                android:textColor="@color/black"
-                />
+                android:background="@drawable/good_detail_item_bg"
+                android:gravity="center_vertical">
+	            <TextView
+	                android:id="@+id/goodsComment"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:paddingLeft="12dp"
+	                android:singleLine="true"
+	                android:textSize="16sp"
+	                android:text="评价"
+	                android:gravity="center_vertical"
+	                android:background="@drawable/good_detail_spxin"
+	                android:textColor="@color/black"
+	                />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
     <RelativeLayout

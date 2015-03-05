@@ -313,9 +313,9 @@ public class ShopCarAdapter  extends BaseAdapter {
         holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            	selectMap.put(position, isChecked);
             	checkBoxesStatus.set(position, isChecked);
             	if(isChecked){
+                	selectMap.put(position, isChecked);
             		int startPosition = groupNumber[position];
             		isAllSelected[startPosition] = true;
             		for(int i=startPosition;groupNumber[i]==startPosition;++i){
@@ -326,6 +326,9 @@ public class ShopCarAdapter  extends BaseAdapter {
             		}
             	}
             	else{
+            		if(selectMap.containsKey(position)){
+            			selectMap.remove(position);
+            		}
     				isAllSelected[groupNumber[position]] = false;            		
             	}
             	notifyDataSetChanged();

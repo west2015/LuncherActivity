@@ -23,7 +23,7 @@ public class ProductDetailEntity implements Serializable {
     private Integer storeId;
     private double freight; //运费
     private Integer buyLimit;//限购
-    private ProductImageEntity[]productDetails;  //图片
+    private ProductImageEntity[] productDetails;  //图片
     private ProductFieldEntity[] productFields;   //参数
     private String pictureCode;
     private double freightRule;

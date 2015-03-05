@@ -60,7 +60,15 @@ public class MakeFormSelectAddressActivity extends ModelActivity implements View
         if(obj instanceof CustomerAddressEntityList){
             entityList = (CustomerAddressEntityList) obj;
             entity = entityList.getAddress();
-            caa.update(entity,-1);
+            CustomerAddressEntity address = MainApplication.getInstance().getCustomerAddress();
+            if(address != null){
+	            for(int i=0;i<entity.length;++i)
+	            if(entity[i].getId().equals(address.getId())){
+	            	click = i;
+	            	break;
+	            }
+            }
+            caa.update(entity,click);
             return;
         }
     }
@@ -109,7 +117,12 @@ public class MakeFormSelectAddressActivity extends ModelActivity implements View
     @Override
     public void getClickPosition(int position) {
     	click = position;
-        caa.update(entity,click);
+    	Intent intent = new Intent();
+	    Bundle bundle = new Bundle();
+	    bundle.putSerializable("address",entity[position]);
+	    intent.putExtras(bundle);
+	    setResult(1,intent);
+	    finish();
     }
 
 }

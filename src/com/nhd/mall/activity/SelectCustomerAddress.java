@@ -39,7 +39,7 @@ public class SelectCustomerAddress extends ModelActivity implements View.OnClick
     private Long memberId;
     private CustomerAddressEntityList entityList;
     private CustomerAddressEntity[] entity;
-    private String sort;//判断是从哪里跳过来的，如果是从订单页面传过来的 选择某一项后就直接跳回订单页面去改变收货地址
+    private String sort;//判断是从哪里跳过来的，如果是从订单页面传过来的选择某一项后就直接跳回订单页面去改变收货地址
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,14 +53,7 @@ public class SelectCustomerAddress extends ModelActivity implements View.OnClick
         getButton(R.drawable.add_address).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            	Bundle bundle = new Bundle();
-            	if(entity == null || entity.length <=0) {
-            		bundle.putBoolean("default", true);
-            	}
-            	else{
-            		bundle.putBoolean("default", false);
-            	}
-                new startIntent(SelectCustomerAddress.this,AddAddressActivity.class,bundle);
+                new startIntent(SelectCustomerAddress.this,AddAddressActivity.class);
             }
         });
     }
@@ -85,19 +78,20 @@ public class SelectCustomerAddress extends ModelActivity implements View.OnClick
         if(obj instanceof CustomerAddressEntityList){
             entityList = (CustomerAddressEntityList) obj;
             entity = entityList.getAddress();
-            caa.update(entity,-1);
+            CustomerAddressEntity address = MainApplication.getInstance().getCustomerAddress();
+            if(address != null){
+	            for(int i=0;i<entity.length;++i)
+	            if(entity[i].getId().equals(address.getId())){
+	            	click = i;
+	            	break;
+	            }
+            }
+            caa.update(entity,click);
             return;
         }
         HashMap<String,String> map = (HashMap<String, String>) obj;
         if(map.get("success").equals("true")){
             Toast.makeText(SelectCustomerAddress.this,"删除成功",Toast.LENGTH_SHORT).show();
-
-            if(entity != null && entity.length>click){
-                Toast.makeText(SelectCustomerAddress.this, entity[click].getId() + "", Toast.LENGTH_SHORT).show();
-            }
-            else{
-                Toast.makeText(SelectCustomerAddress.this, "entity is null or entity.length<=click", Toast.LENGTH_SHORT).show();            	
-            }
 
             CustomerAddressEntity defaultAddress = MainApplication.getInstance().getCustomerAddress();
             if(defaultAddress != null && entity[click].getId().equals(defaultAddress.getId())){ 
@@ -176,7 +170,7 @@ public class SelectCustomerAddress extends ModelActivity implements View.OnClick
     public void getClickPosition(int position) {
     	click = position;
         caa.update(entity,click);
-        
+
 //        if(sort != null){
 //        	Intent intent = new Intent();
 //            intent.setClass(SelectCustomerAddress.this,MakeFormActivity.class);
