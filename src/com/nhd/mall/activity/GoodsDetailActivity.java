@@ -1,8 +1,10 @@
 package com.nhd.mall.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -11,9 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.baidu.mobstat.StatService;
 import com.nhd.mall.R;
 import com.nhd.mall.api.AndroidServerFactory;
@@ -40,7 +42,6 @@ import com.nhd.mall.widget.ModelActivity;
 import com.nhd.mall.widget.PageControl;
 import com.nhd.mall.widget.ParemiterView;
 import com.umeng.analytics.MobclickAgent;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -64,6 +65,7 @@ public class GoodsDetailActivity extends ModelActivity implements
 	private TextView tvNumber;
 	private TextView tvOldPrice;
 	private ParemiterView paremiterView; // 自定义参数选择控件
+	private RelativeLayout rlPrive;
 	private int total = 0;
 	private HashMap<String, String> pamereterMap = new HashMap<String, String>();
 	private TextView tvLimitTitle;// 限购标题
@@ -111,9 +113,11 @@ public class GoodsDetailActivity extends ModelActivity implements
 		tvTotal = (TextView) findViewById(R.id.countFinal);
 		tvCount = (TextView) findViewById(R.id.et_count);
 		paremiterView = (ParemiterView) findViewById(R.id.paremiterView);
+		rlPrive = (RelativeLayout) findViewById(R.id.rl_prive);
 		tvLimitTitle = (TextView) findViewById(R.id.countLimitTitle);
 		tvLimit = (TextView) findViewById(R.id.countLimit);
 
+		rlPrive.setOnClickListener(this);
 		findViewById(R.id.goodsDetail).setOnClickListener(this);
 		findViewById(R.id.goodsComment).setOnClickListener(this);
 		findViewById(R.id.btn_buy_now).setOnClickListener(this);
@@ -143,9 +147,30 @@ public class GoodsDetailActivity extends ModelActivity implements
 		}
 	}
 
+	@SuppressLint("NewApi")
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
+		case R.id.rl_prive:	// 其他参数
+			if(paremiterView.isShown()){
+				paremiterView.setVisibility(View.GONE);
+				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+					rlPrive.setBackground(getResources().getDrawable(R.drawable.good_detail_spxin));
+				}
+				else{
+					rlPrive.setBackgroundDrawable(getResources().getDrawable(R.drawable.good_detail_spxin));
+				}
+			}
+			else{
+				paremiterView.setVisibility(View.VISIBLE);
+				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+					rlPrive.setBackground(getResources().getDrawable(R.drawable.good_detail_another));
+				}
+				else{
+					rlPrive.setBackgroundDrawable(getResources().getDrawable(R.drawable.good_detail_another));
+				}
+			}
+			break;
 		case R.id.btn_count_add: // 增加购买量
 			int buyCount = Integer.parseInt(tvCount.getText().toString());
 			if (productDetailEntity == null)

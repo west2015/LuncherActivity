@@ -1,5 +1,6 @@
 package com.nhd.mall.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -10,11 +11,9 @@ import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.nhd.mall.R;
 import com.nhd.mall.entity.ProductFieldEntity;
 import com.nhd.mall.entity.ProductFieldValue;
-
 import java.util.HashMap;
 
 /**商品详细的参数选择自定义view
@@ -33,7 +32,8 @@ public class ParemiterView extends LinearLayout {
         super(context, attrs);
     }
 
-    public ParemiterView(Context context, AttributeSet attrs, int defStyle) {
+    @SuppressLint("NewApi")
+	public ParemiterView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
@@ -43,7 +43,7 @@ public class ParemiterView extends LinearLayout {
     }
     private void initView() {
         removeAllViews();
-        if(productFieldEntity==null||productFieldEntity.length<=0)return;
+        if(productFieldEntity==null || productFieldEntity.length<=0)return;
         for(int i=0;i<productFieldEntity.length;i++){
             View view = LayoutInflater.from(context).inflate(R.layout.paremiter_item_layout,null);
             this.addView(view);

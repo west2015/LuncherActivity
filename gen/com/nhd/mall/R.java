@@ -799,6 +799,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int orders=0x7f0901c9;
         public static final int orderstatus=0x7f09011f;
         public static final int pageControl=0x7f0900f6;
+        public static final int paremiterView=0x7f0900fe;
         public static final int pay=0x7f090126;
         public static final int preview_view=0x7f09023c;
         public static final int priveCountTitle=0x7f09007f;
@@ -1068,7 +1069,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int tv_post_name=0x7f0901b3;
         public static final int tv_post_number=0x7f0901b4;
         public static final int tv_price=0x7f090217;
-        public static final int tv_prive=0x7f0900fe;
         public static final int tv_prive_title=0x7f09009a;
         public static final int tv_quan=0x7f090172;
         public static final int tv_size=0x7f09012b;
