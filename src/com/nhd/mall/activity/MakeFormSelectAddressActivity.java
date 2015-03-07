@@ -37,7 +37,7 @@ public class MakeFormSelectAddressActivity extends ModelActivity implements View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.make_form_select_address);
-        setTitle("确认订单");
+        setTitle("选择收货地址");
         find();
     }
 

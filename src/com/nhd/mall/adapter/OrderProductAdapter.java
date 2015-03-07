@@ -52,7 +52,7 @@ public class OrderProductAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		OrderProductEntity entity =mProducts[position];
+		OrderProductEntity entity = mProducts[position];
 		if (convertView == null) {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(mContext).inflate(R.layout.listitem_products, null);
@@ -73,9 +73,9 @@ public class OrderProductAdapter extends BaseAdapter{
 		holder.tvMoney.setText("￥"+entity.getPrice());
 		holder.tvCount.setText("X"+entity.getNum());
 		
-		holder.tvColor.setText("颜色:"+entity.getColor());
-		holder.tvSize.setText("规格:"+entity.getSpecification());
-		
+//		holder.tvColor.setText("颜色:"+entity.getColor());
+//		holder.tvSize.setText("规格:"+entity.getSpecification());
+
 		String url = entity.getThumb();
 		if(url!=null&&url.length()!=0)
 			imageLoader.setBackgroup(url, holder.imProduct);

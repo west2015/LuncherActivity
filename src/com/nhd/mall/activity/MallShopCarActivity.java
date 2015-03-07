@@ -1,4 +1,4 @@
-	package com.nhd.mall.activity;
+package com.nhd.mall.activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -240,7 +240,6 @@ public class MallShopCarActivity extends ModelActivity implements View.OnClickLi
         }
         HashMap<String,String> map = (HashMap<String, String>) obj;
         if(map.get("success").equals("true")){
-            Toast.makeText(MallShopCarActivity.this,"操作成功",Toast.LENGTH_SHORT).show();
             successNotify();
         }
     }

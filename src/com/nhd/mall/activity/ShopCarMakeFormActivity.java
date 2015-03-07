@@ -21,6 +21,7 @@ import com.nhd.mall.api.AndroidServerFactory;
 import com.nhd.mall.app.MainApplication;
 import com.nhd.mall.asyncTask.AddressListGet;
 import com.nhd.mall.asyncTask.OrderFormPost;
+import com.nhd.mall.asyncTask.StoreListGet;
 import com.nhd.mall.datebase.DbAddress;
 import com.nhd.mall.entity.CarEntity;
 import com.nhd.mall.entity.CarList;
@@ -32,6 +33,7 @@ import com.nhd.mall.entity.Member;
 import com.nhd.mall.entity.OrderFiledEntity;
 import com.nhd.mall.entity.OrderProductEntity;
 import com.nhd.mall.entity.StoreEntity;
+import com.nhd.mall.entity.StoreListEntity;
 import com.nhd.mall.util.OnAsyncTaskUpdateListener;
 import com.nhd.mall.widget.ModelActivity;
 
@@ -43,7 +45,7 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
 	private final int MAIL = 2;
     private Dialog buySuccessDialog = null; // 交易成功弹出框
     private Long memberId;
-    private int storeId;
+    private Integer storeId;
     private Integer currentTag;
     // 与收货信息有关的
     private AddressListGet adlg = null;
@@ -56,6 +58,7 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
     private TextView tvNoAddress;
     private RelativeLayout rlTop;
     // 订单列表
+    private StoreListGet slg;
     private ListView listView;
     private ShopCarMakeFormAdapter sca;
     // 提交订单
@@ -97,18 +100,11 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
         		OrderProductEntity product = carEntity[i].getOrderProduct();
         		freight += product.getFreight();
         		allPrice += product.getFreight() + product.getPrice()*product.getNum();
-        		this.currentTag = product.getGetway();
+//        		this.currentTag = product.getGetway();
+        		this.currentTag = 1;
         	}
         }
-        storeName = " ";
-        if(MainApplication.getInstance().getStores() != null){
-        	StoreEntity[] stores = MainApplication.getInstance().getStores();
-        	for(int i=0;i<stores.length;++i)
-        	if(stores[i].getId() == storeId){
-        		storeName = stores[i].getName();
-        		break;
-        	}
-        }
+        storeName = getStoreName(storeId);
         sca = new ShopCarMakeFormAdapter(this,storeName,carEntity);
         listView.setAdapter(sca);
         // 获取接口数据
@@ -120,7 +116,27 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
         // 获取本地数据
         initCustomerAddress();
 	}
-
+    // 获取店名
+    private String getStoreName(int storeId){
+        if(MainApplication.getInstance().getStores() != null){
+        	StoreEntity[] stores = MainApplication.getInstance().getStores();
+//        	String temp = "";
+//        	for(int i=0;i<stores.length;++i){
+//        		temp += stores[i].getId()+ "\n";
+//        	}
+//        	Toast.makeText(this, temp, Toast.LENGTH_SHORT).show();
+        	for(int i=0;i<stores.length;++i)
+        	if(stores[i].getId().equals(storeId)){
+        		storeName = stores[i].getName();
+        		return storeName;
+        	}
+        }
+        else{
+            slg = new StoreListGet(this);
+            slg.setListener(this);
+        }
+    	return "";
+    }
     // 初始化收货信息
     private void initCustomerAddress(CustomerAddressEntity address) {
     	this.address = address;
@@ -173,7 +189,18 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
             initCustomerAddress();
             return;
         }
-        else{
+        else
+        if(obj instanceof StoreListEntity){
+        	StoreListEntity sle = (StoreListEntity) obj;
+            StoreEntity[] stores = sle.getStores();
+            if(stores != null && stores.length>0){
+            	MainApplication.getInstance().setStores(stores);
+            }
+            storeName = getStoreName(storeId);
+            sca.update(storeName);
+            return ;
+         }
+         else{
 	        HashMap<String,String> map = (HashMap<String, String>) obj;
 	    	Intent intent = new Intent();
 	        intent.setClass(ShopCarMakeFormActivity.this,MallShopCarActivity.class);
@@ -257,55 +284,82 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
         isBuyDialog.show();
     }
 
+//    private void putForm(){
+//        memberId = MainApplication.getInstance().getMember().getId();
+//        FormEntity form = new FormEntity();
+//        Member member =  new Member();
+//        member.setId(memberId);
+//        form.setMember(member);//赋值member
+//        form.setOrderType("1");  //1是商品
+//        form.setIsMoney("2");	//是否使用现金  使用 1；不使用2
+//        form.setStoreId(storeId);//购买门店Id
+//        OrderProductEntity[] orderProducts = new OrderProductEntity[carEntity.length];
+//        for(int i=0;i<carEntity.length;++i){
+//        	OrderProductEntity product = carEntity[i].getOrderProduct();
+////        	orderProducts[i] = new OrderProductEntity();
+////        	orderProducts[i].setPrice(product.getPrice());
+////        	orderProducts[i].setNum(product.getNum());
+////        	orderProducts[i].setProductId(product.getProductId());
+////        	orderProducts[i].setGetway(product.getGetway());
+//        	orderProducts[i] = product;
+//            OrderFiledEntity[] fields = new OrderFiledEntity[1];
+//            fields[0] = new OrderFiledEntity();
+//            orderProducts[i].setOrderFields(fields);
+//        }
+//        form.setProducts(orderProducts);
+//        switch(this.currentTag){
+//        case MAIL: //送货上门
+//            if(address==null){
+//                Toast.makeText(ShopCarMakeFormActivity.this,"请选择收货地址",Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//            form.setGetway("2");//提货方式   自行取货 1 ；快递：2
+//            form.setAddId(address.getId());//用户地址Id
+//            form.setFreight(freight);//赋值运费
+//            //在这里判断是否有活动，然后如果总额超过多少可以免运费
+//            setTotlaPay(form,true);
+//            break;
+//        case STORE://门店自提
+//            if(address==null){
+//                Toast.makeText(ShopCarMakeFormActivity.this,"请选择收货地址",Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//            form.setGetway("1");//提货方式   自行取货 1 ；快递：2
+//            form.setAddId(address.getId());//用户地址Id
+//            setTotlaPay(form,false);
+//            FormStoreEntity orderStores = new FormStoreEntity();
+//            orderStores.setStoreId(storeId);
+//            orderStores.setStoreName(storeName);
+//            form.setOrderStores(orderStores);
+//            break;
+//        }
+//        new OrderFormPost(ShopCarMakeFormActivity.this,form).setListener(ShopCarMakeFormActivity.this);
+//    }
+    //提交订单方法
     private void putForm(){
+        if(carEntity==null || carEntity.length <= 0)return;
         memberId = MainApplication.getInstance().getMember().getId();
         FormEntity form = new FormEntity();
         Member member =  new Member();
         member.setId(memberId);
         form.setMember(member);//赋值member
         form.setOrderType("1");  //1是商品
-        form.setIsMoney("2");	//是否使用现金  使用 1；不使用2
+        form.setIsMoney("2");//是否使用现金  使用 1；不使用2
         form.setStoreId(storeId);//购买门店Id
-        OrderProductEntity[] orderProducts = new OrderProductEntity[carEntity.length];
-        for(int i=0;i<carEntity.length;++i){
-        	OrderProductEntity product = carEntity[i].getOrderProduct();
-        	orderProducts[i] = new OrderProductEntity();
-        	orderProducts[i].setPrice(product.getPrice());
-        	orderProducts[i].setNum(product.getNum());
-        	orderProducts[i].setProductId(product.getProductId());
-            OrderFiledEntity[] fields = new OrderFiledEntity[1];
-            fields[0] = new OrderFiledEntity();
-            orderProducts[i].setOrderFields(fields);
-        }
+        OrderProductEntity[]orderProducts = new OrderProductEntity[1];
+        orderProducts[0] = new OrderProductEntity();
+        OrderProductEntity productDetailEntity = carEntity[0].getOrderProduct();
+		orderProducts[0].setPrice(productDetailEntity .getPrice());
+        orderProducts[0].setProductId(productDetailEntity.getProductId());
+        orderProducts[0].setNum(productDetailEntity.getNum());
+        OrderFiledEntity[] fields;
+        fields = new OrderFiledEntity[1];
+        fields[0] = new OrderFiledEntity();
+        orderProducts[0].setOrderFields(fields);
         form.setProducts(orderProducts);
-        switch(this.currentTag){
-        case MAIL: //送货上门
-            if(address==null){
-                Toast.makeText(ShopCarMakeFormActivity.this,"请选择收货地址",Toast.LENGTH_SHORT).show();
-                return;
-            }
-            form.setGetway("2");//提货方式   自行取货 1 ；快递：2
-            form.setAddId(address.getId());//用户地址Id
-            form.setFreight(freight);//赋值运费
-            //在这里判断是否有活动，然后如果总额超过多少可以免运费
-            setTotlaPay(form,true);
-            break;
-        case STORE://门店自提
-            if(address==null){
-                Toast.makeText(ShopCarMakeFormActivity.this,"请选择收货地址",Toast.LENGTH_SHORT).show();
-                return;
-            }
-            form.setGetway("1");//提货方式   自行取货 1 ；快递：2
-            form.setAddId(address.getId());//用户地址Id
-            setTotlaPay(form,false);
-            FormStoreEntity orderStores = new FormStoreEntity();
-            orderStores.setStoreId(storeId);
-            orderStores.setStoreName(storeName);
-            form.setOrderStores(orderStores);
-            break;
-        }
         new OrderFormPost(ShopCarMakeFormActivity.this,form).setListener(ShopCarMakeFormActivity.this);
     }
+
 
     //从选择收货地址页面回来后调用这个方法
     @Override

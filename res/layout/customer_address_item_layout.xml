@@ -28,7 +28,7 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textColor="@color/black"
             android:singleLine="true"
             android:maxLength="15"/>
@@ -38,21 +38,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/tvName"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textColor="@color/black"
             android:layout_marginLeft="20dp"
             android:singleLine="true"/>
 
         <TextView
-            android:id="@+id/tvAddress"
+            android:id="@+id/tvArea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvName"
 			android:layout_toLeftOf="@+id/tvDefault"
             android:layout_alignLeft="@+id/tvName"
-            android:textSize="16sp"
             android:layout_marginTop="10dp"
+            android:textSize="18sp"
             android:textColor="@color/black"/>
 
+        <TextView
+            android:id="@+id/tvAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvArea"
+			android:layout_toLeftOf="@+id/tvDefault"
+            android:layout_alignLeft="@+id/tvName"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            />
     </RelativeLayout>
 </RelativeLayout>

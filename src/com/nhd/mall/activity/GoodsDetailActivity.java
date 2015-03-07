@@ -178,13 +178,7 @@ public class GoodsDetailActivity extends ModelActivity implements
 			if (productDetailEntity.getBuyLimit() != null
 					&& productDetailEntity.getBuyLimit() > 0) {
 				if (buyCount >= productDetailEntity.getBuyLimit()) {
-
-					Toast toast = Toast.makeText(GoodsDetailActivity.this,
-							"每个用户限购" + productDetailEntity.getBuyLimit()
-									+ "件哦！", Toast.LENGTH_SHORT);
-					toast.getView().getBackground().setAlpha(90);
-					toast.setGravity(Gravity.CENTER, 0, 0);
-					toast.show();
+					Toast.makeText(GoodsDetailActivity.this,"每个用户限购" + productDetailEntity.getBuyLimit()+ "件哦！", Toast.LENGTH_SHORT).show();
 					return;
 				}
 			}

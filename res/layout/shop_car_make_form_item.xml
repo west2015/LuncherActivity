@@ -51,7 +51,6 @@
 		    android:textColor="@color/red"
 		    android:textSize="18sp"/>
 		<TextView
-		    android:id="@+id/tv_way"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_below="@+id/imageView"
@@ -63,7 +62,7 @@
 		    android:textSize="16sp"
 		    android:textColor="@color/txtunclick"/>
 		<TextView
-		    android:id="@+id/tv_freight"
+		    android:id="@+id/tv_way"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_below="@+id/imageView"
@@ -105,10 +104,11 @@
 	    android:visibility="visible"
 	    android:id="@+id/rl_total"
 		android:layout_width="match_parent"
-		android:layout_height="60dp"
+		android:layout_height="wrap_content"
 		android:background="@drawable/shop_car_content_bg"
 		android:layout_marginLeft="12dp"
-		android:layout_marginRight="12dp">
+		android:layout_marginRight="12dp"
+		android:paddingBottom="12dp">
 		<TextView
 		    android:id="@+id/tv_total_number"
 		    android:layout_width="wrap_content"
@@ -119,6 +119,7 @@
 		    android:textSize="18sp"
 		    android:textColor="@color/txtunclick"/>
 		<TextView
+		    android:visibility="gone"
 		    android:id="@+id/tv_total_freight"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
@@ -137,7 +138,16 @@
 		    android:text="￥4998"
 		    android:textSize="18sp"
 		    android:textColor="@color/red"/>
+		<TextView 
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_toLeftOf="@+id/tv_total_price"
+		    android:layout_marginTop="10dp"
+		    android:text="合计："
+		    android:textSize="18sp"
+		    android:textColor="@color/txtunclick"/>
 		<TextView
+		    android:visibility="gone"
 		    android:id="@+id/tv_contain_freight"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"

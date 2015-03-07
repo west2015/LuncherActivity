@@ -2,41 +2,19 @@ package com.nhd.mall.adapter;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Build;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nhd.mall.R;
-import com.nhd.mall.activity.MallShopCarActivity;
-import com.nhd.mall.asyncTask.DeleteCarGet;
 import com.nhd.mall.entity.CarEntity;
-import com.nhd.mall.entity.CarList;
-import com.nhd.mall.entity.CollectionEntity;
 import com.nhd.mall.entity.OrderProductEntity;
 import com.nhd.mall.util.ImageLoader;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**购物车适配器
  * Created by caili on 14-4-8.
@@ -80,6 +58,10 @@ public class ShopCarMakeFormAdapter  extends BaseAdapter {
         this.entity = entity;
         notifyDataSetChanged();
     }
+    public void update(String storeName){
+    	this.storeName = storeName;
+        notifyDataSetChanged();
+    }
     @Override
     public int getCount() {
         return entity==null?0:entity.length;
@@ -106,7 +88,6 @@ public class ShopCarMakeFormAdapter  extends BaseAdapter {
             holder.tvPrice = (TextView)convertView.findViewById(R.id.tv_price);
             holder.tvNumber = (TextView)convertView.findViewById(R.id.tv_number);
             holder.tvWay = (TextView)convertView.findViewById(R.id.tv_way);
-            holder.tvFreight = (TextView)convertView.findViewById(R.id.tv_freight);
             holder.tvTotalNumber = (TextView)convertView.findViewById(R.id.tv_total_number);
             holder.tvTotalFreight = (TextView)convertView.findViewById(R.id.tv_total_freight);
             holder.tvTotalPrice = (TextView)convertView.findViewById(R.id.tv_total_price);
@@ -126,13 +107,12 @@ public class ShopCarMakeFormAdapter  extends BaseAdapter {
         holder.tvPrice.setText(orderProduct.getPrice()==null?"￥0":"￥"+String.valueOf(orderProduct.getPrice()));
         holder.tvNumber.setText(orderProduct.getNum()==null?0+"":"×"+orderProduct.getNum());
         if(orderProduct.getGetway() == 1){ //自提
-        	holder.tvWay.setText("配送方式：自提");
-        	holder.tvFreight.setVisibility(View.GONE);
+        	holder.tvWay.setText("自提");
         }
         else{ // 快递
-        	holder.tvWay.setText("配送方式：快递");
-        	holder.tvFreight.setVisibility(View.VISIBLE);
-        	holder.tvFreight.setText("快递：￥"+orderProduct.getFreight());
+        	holder.tvWay.setText("快递：￥"+orderProduct.getFreight());
+//        	holder.tvFreight.setVisibility(View.VISIBLE);
+//        	holder.tvFreight.setText("快递：￥"+orderProduct.getFreight());
         }
         // top
         if(position == 0 ){
@@ -149,10 +129,11 @@ public class ShopCarMakeFormAdapter  extends BaseAdapter {
         	holder.tvTotalPrice.setText("￥"+totalPrice);
         	if(!isContainFreight){
         		holder.tvTotalFreight.setVisibility(View.GONE);
-        		holder.tvContainFreight.setText("(不含运费)");
+        		holder.tvContainFreight.setVisibility(View.GONE);
         	}
         	else{
         		holder.tvTotalFreight.setVisibility(View.VISIBLE);
+        		holder.tvContainFreight.setVisibility(View.VISIBLE);
         		holder.tvTotalFreight.setText("(运费：￥"+totalFreight+")");
         		holder.tvContainFreight.setText("(含运费)");
         	}
@@ -169,7 +150,7 @@ public class ShopCarMakeFormAdapter  extends BaseAdapter {
         // Content
         private ImageView ivImg;
         private TextView tvName,tvPrice,tvNumber;
-        private TextView tvWay,tvFreight;
+        private TextView tvWay;
         // Total
         private RelativeLayout rlTotal;
         private TextView tvTotalNumber,tvTotalFreight;

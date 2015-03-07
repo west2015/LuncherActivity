@@ -23,8 +23,6 @@ public class OrderProductEntity implements Serializable {
     private Integer total;//库存
     private double freightRule;
     
-    private String color;
-    private String specification;
     private Integer getway;
 
 
@@ -34,22 +32,6 @@ public class OrderProductEntity implements Serializable {
 
 	public void setGetway(Integer getway) {
 		this.getway = getway;
-	}
-
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
-	public String getSpecification() {
-		return specification;
-	}
-
-	public void setSpecification(String specification) {
-		this.specification = specification;
 	}
 
 	public double getFreightRule() {

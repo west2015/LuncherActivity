@@ -64,15 +64,17 @@ public class CustomerAddressAdapter extends BaseAdapter {
             holder.tvName = (TextView)convertView.findViewById(R.id.tvName);
             holder.tvPhone = (TextView)convertView.findViewById(R.id.tvPhone);
             holder.tvDefault = (TextView)convertView.findViewById(R.id.tvDefault);
+            holder.tvArea = (TextView) convertView.findViewById(R.id.tvArea);
             holder.rlAddress = (RelativeLayout)convertView.findViewById(R.id.rl_address);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder)convertView.getTag();
         }
 
-        holder.tvAddress.setText(customes.getAddress()==null?"":customes.getAddress());
         holder.tvName.setText(customes.getName()==null?"":customes.getName());
         holder.tvPhone.setText(customes.getMobile()==null?"":customes.getMobile());
+        holder.tvArea.setText(customes.getArea()==null?"":customes.getArea());
+        holder.tvAddress.setText(customes.getAddress()==null?"":customes.getAddress());
 
         if(click==position){
             holder.rlAddress.setBackgroundResource(R.drawable.address_click_bg);
@@ -103,6 +105,7 @@ public class CustomerAddressAdapter extends BaseAdapter {
     	private TextView tvDefault;
         private TextView tvName;
         private TextView tvPhone;
+        private TextView tvArea;
         private TextView tvAddress;
         private RelativeLayout rlAddress;
     }
