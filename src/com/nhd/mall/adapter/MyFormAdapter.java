@@ -156,7 +156,7 @@ public class MyFormAdapter extends BaseAdapter {
     }
     private void initState(ViewHolder holder, FormEntity form) {
         String state = form.getState();
-        String getWay = form.getGetway();
+        String getWay = form.getGetway()+"";
         if(state.equals("0")){     //未付款
          holder.tvStatus.setText("待支付");
             holder.btnFirst.setVisibility(View.GONE);

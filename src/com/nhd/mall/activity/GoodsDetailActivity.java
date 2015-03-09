@@ -370,6 +370,7 @@ public class GoodsDetailActivity extends ModelActivity implements
 			productDetailEntity = pe.getProduct();
 			productFieldEntity = productDetailEntity.getProductFields();
 			productImageEntity = productDetailEntity.getProductDetails();
+			
 			initDetail();
 			initParemeter();
 			updateTop(productImageEntity);

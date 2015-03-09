@@ -63,7 +63,7 @@ public class CustomerAddressAdapter extends BaseAdapter {
             holder.tvAddress = (TextView)convertView.findViewById(R.id.tvAddress);
             holder.tvName = (TextView)convertView.findViewById(R.id.tvName);
             holder.tvPhone = (TextView)convertView.findViewById(R.id.tvPhone);
-            holder.tvDefault = (TextView)convertView.findViewById(R.id.tvDefault);
+//            holder.tvDefault = (TextView)convertView.findViewById(R.id.tvDefault);
             holder.tvArea = (TextView) convertView.findViewById(R.id.tvArea);
             holder.rlAddress = (RelativeLayout)convertView.findViewById(R.id.rl_address);
             convertView.setTag(holder);
@@ -83,13 +83,13 @@ public class CustomerAddressAdapter extends BaseAdapter {
             holder.rlAddress.setBackgroundResource(R.drawable.address_bg);
         }
         
-        // 判断是否为默认
-        if(address != null && customes.getId().equals(address.getId())){
-        	holder.tvDefault.setVisibility(View.VISIBLE);
-        }
-        else{
-        	holder.tvDefault.setVisibility(View.INVISIBLE);
-        }
+//        // 判断是否为默认
+//        if(address != null && customes.getId().equals(address.getId())){
+//        	holder.tvDefault.setVisibility(View.VISIBLE);
+//        }
+//        else{
+//        	holder.tvDefault.setVisibility(View.INVISIBLE);
+//        }
 
         holder.rlAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +102,7 @@ public class CustomerAddressAdapter extends BaseAdapter {
         return convertView;
     }
     private  class ViewHolder {
-    	private TextView tvDefault;
+//    	private TextView tvDefault;
         private TextView tvName;
         private TextView tvPhone;
         private TextView tvArea;

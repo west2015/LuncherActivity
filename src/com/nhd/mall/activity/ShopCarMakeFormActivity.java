@@ -23,6 +23,7 @@ import com.nhd.mall.asyncTask.AddressListGet;
 import com.nhd.mall.asyncTask.OrderFormPost;
 import com.nhd.mall.asyncTask.StoreListGet;
 import com.nhd.mall.datebase.DbAddress;
+import com.nhd.mall.entity.AddCustomerAddress;
 import com.nhd.mall.entity.CarEntity;
 import com.nhd.mall.entity.CarList;
 import com.nhd.mall.entity.CustomerAddressEntity;
@@ -206,8 +207,17 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
 	        intent.setClass(ShopCarMakeFormActivity.this,MallShopCarActivity.class);
 	        Bundle bundle = new Bundle();
 	        if(map.get("success").equals("true")){
+	        	
+	        	
 	            Toast.makeText(this, "订单已生成，请及时完成付款!", Toast.LENGTH_SHORT).show();
 	            bundle.putBoolean("success", true);
+	            
+	            Intent i = new Intent(ShopCarMakeFormActivity.this, FormListActivity.class);
+				i.putExtra("orderType", 1); //1:商品
+				i.putExtra("getway",carEntity[0].getOrderProduct().getGetway());  //自行取货 1 ；快递：2
+				i.putExtra("kind", 0);
+				startActivity(i);
+				finish();
 	        }
 	        else
 	        if(map.get("success").equals("nostock")){
@@ -217,6 +227,8 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
 	        }
 	        intent.putExtras(bundle);
 	        setResult(1,intent);
+	        
+	        
         }
     }
 
@@ -346,6 +358,16 @@ public class ShopCarMakeFormActivity extends ModelActivity implements View.OnCli
         form.setOrderType("1");  //1是商品
         form.setIsMoney("2");//是否使用现金  使用 1；不使用2
         form.setStoreId(storeId);//购买门店Id
+        AddCustomerAddress ad  = new AddCustomerAddress();
+        ad.setAddress(address.getAddress());
+        ad.setArea(address.getArea());
+        ad.setMobile(address.getMobile());
+        ad.setName(address.getName());
+        ad.setTel(address.getTel());
+        ad.setZipcode(address.getZipcode());
+        ad.setMemberId(address.getMemberId());
+        form.setAddress(ad);
+//        form.setGetway("1");
         OrderProductEntity[]orderProducts = new OrderProductEntity[1];
         orderProducts[0] = new OrderProductEntity();
         OrderProductEntity productDetailEntity = carEntity[0].getOrderProduct();

@@ -207,9 +207,10 @@ public class FormDetatilForGoodsActivity extends ModelActivity
 		if("1".equals(getway)){//自提
 			orderPrice.setText("￥"+order.getPayment());
 			
-			if(order.getOrderStores()!=null)
-			formTV1.setText("门店地址："+order.getOrderStores().getStoreName());
-			formTV2.setText("客服电话："+order.getOrderStores().getStorePhone());
+			if(order.getOrderStores()!=null){
+				formTV1.setText("门店地址："+order.getOrderStores().getStoreName());
+				formTV2.setText("客服电话："+order.getOrderStores().getStorePhone());
+			}
 			if(order.getCode()!=null){
 				code.setText("提货码："+order.getCode());
 				code.setVisibility(View.VISIBLE);

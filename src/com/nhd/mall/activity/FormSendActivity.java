@@ -51,7 +51,6 @@ public class FormSendActivity extends ModelActivity implements
 		switch (view.getId()) {
 		// 跳转到未发货订单页面
 		case R.id.iv_send:
-			System.out.println("dasdad");
 			// new startIntent(FormSendActivity.this, SupplierActivity.class);
 			intent.putExtra("kind", 1); //0:未付款 1：未发货/未提货 2：全部订单
 			break;
