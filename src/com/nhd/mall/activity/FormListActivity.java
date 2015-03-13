@@ -178,7 +178,7 @@ public class FormListActivity extends ModelActivity implements
 			if (orders.length != 0) {
 				for (int i = 0; i < orders.length; i++) {
 
-					if (orders[i].getGetway().equals(this.getWay + "")
+					if (orders[i].getGetway()!=null&&orders[i].getGetway().equals(this.getWay + "")
 							&& orders[i].getOrderType().equals(
 									this.orderType + "")) {
 						// 未付款
